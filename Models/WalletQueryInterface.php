@@ -9,11 +9,17 @@
  * Time:    19:54
  * File:    WalletInterface.php
  **/
-namespace Fruitful\WalletsBundle\Model\PaymentManager\Provider;
+namespace PartFire\MangoPayBundle\Models;
 
-use Fruitful\IdentityCheckBundle\Entity\IdentityCheck;
+use PartFire\MangoPayBundle\Models\DTOs\Wallet;
 
 interface WalletQueryInterface
 {
-    public function create(IdentityCheck $identityCheck);
+    public function create(Wallet $walletDto);
+
+    public function get($walletId);
+
+    public function getAll();
+
+    public function delete($walletId);
 }

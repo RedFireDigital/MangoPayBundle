@@ -1,12 +1,21 @@
 parameters:
     mango_api.class: '\MangoPay\MangoPayApi'
     part_fire_mango_pay.dto.user_translator.class: '\PartFire\MangoPayBundle\Models\DTOs\Translators\UserTranslator'
+    part_fire_mango_pay.dto.wallet_translator.class: '\PartFire\MangoPayBundle\Models\DTOs\Translators\WalletTranslator'
 
 services:
     part_fire_mango_pay.models_adapters.user_query:
         class: PartFire\MangoPayBundle\Models\Adapters\UserQuery
         arguments: ['%mango_api.class%', '@logger', '%part_fire_mango_pay.dto.user_translator.class%']
 
+    part_fire_mango_pay.models_adapters.wallet_query:
+        class: PartFire\MangoPayBundle\Models\Adapters\WalletQuery
+        arguments: ['%mango_api.class%', '@logger', '%part_fire_mango_pay.dto.wallet_translator.class%']
+
     part_fire_mango_pay.services.user:
         class: PartFire\MangoPayBundle\Services\User
         arguments: ['@part_fire_mango_pay.models_adapters.user_query']
+
+    part_fire_mango_pay.services.wallet:
+        class: PartFire\MangoPayBundle\Services\Wallet
+        arguments: ['@part_fire_mango_pay.models_adapters.wallet_query']

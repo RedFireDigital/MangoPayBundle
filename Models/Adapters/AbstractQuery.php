@@ -32,6 +32,7 @@ abstract class AbstractQuery
         $this->mangoPayApi->Config->ClientId = 'your-client-id';
         $this->mangoPayApi->Config->ClientPassword = 'your-client-password';
         $this->mangoPayApi->Config->TemporaryFolder = '/some/path/';
+        $this->mangoPayApi->setLogger($logger);
         $this->logger = $logger;
     }
 }
