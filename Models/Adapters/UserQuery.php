@@ -12,7 +12,6 @@
 
 namespace PartFire\MangoPayBundle\Models\Adapters;
 
-
 use MangoPay\Libraries\Exception;
 use MangoPay\Libraries\ResponseException;
 use MangoPay\MangoPayApi;
