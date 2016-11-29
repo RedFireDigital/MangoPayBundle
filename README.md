@@ -51,7 +51,8 @@ Add your details to your `app/config/parameters.yml` file.  For example:
 
     $walletDto = new \PartFire\MangoPayBundle\Models\DTOs\Wallet();
     $walletDto->setTag('TAG1');
-    $walletDto->setOwenerIds([123456]);
+    $walletDto->setOwenerId('123456');
+    //$walletDto->setOwenerIds(['123456']);
     $walletDto->setDescription('A natural users wallet');
     $walletDto->setCurrency('GBP');
     
