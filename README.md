@@ -1,5 +1,5 @@
 # MangoPayBundle
-A set of Symfony services for use in your project in integrate with Mangopay API faster. 
+A set of Symfony services for use in your project to ease integration with Mangopay API. 
 
 This bundle depends upon the [official Mangopay SDK PHP for Mangopay API v2](https://github.com/Mangopay/mangopay2-php-sdk).  This means that this bundle only support Mangopay API version 2.
 
@@ -18,11 +18,11 @@ Add your details to your `app/config/parameters.yml` file.  For example:
 
 ### Users
 
+#### Create a user
+
 ```php
-    //create a user
     $userService = $this->container->get('part_fire_mango_pay.services.user');
     
-    //create a user DTO
     $userDto = new \PartFire\MangoPayBundle\Models\DTOs\User();
     $userDto->setFirstName('Dick');
     $userDto->setLastName('Jones');
@@ -31,7 +31,6 @@ Add your details to your `app/config/parameters.yml` file.  For example:
     $userDto->setNationality('GB');
     $userDto->setCountryOfResidence('GB');
     
-    //make the request to create the user based on the details in the DTO
     $userDtoUpdated = $userService->create($userDto);
     
     if ($userDtoUpdated instanceof \PartFire\MangoPayBundle\Models\DTOs\User) {
@@ -42,6 +41,30 @@ Add your details to your `app/config/parameters.yml` file.  For example:
         //an error you can deal with
     }
  ```
+ 
+### Wallets
+
+#### Create a wallet
+
+```php
+    $walletService = $this->container->get('part_fire_mango_pay.services.wallet');
+
+    $walletDto = new \PartFire\MangoPayBundle\Models\DTOs\Wallet();
+    $walletDto->setTag('TAG1');
+    $walletDto->setOwenerIds([123456]);
+    $walletDto->setDescription('A natural users wallet');
+    $walletDto->setCurrency('GBP');
+    
+    $walletDtoUpdated = $walletService->create($walletDto);
+        
+    if ($walletDtoUpdated instanceof \PartFire\MangoPayBundle\Models\DTOs\Wallet) {
+        $walletDtoUpdated->getId(); //The wallet DTO populated with MangoPay ID.
+    }
+    
+    if ($walletDtoUpdated instanceof \PartFire\MangoPayBundle\Models\Exceptions) {
+        //an error you can deal with
+    }
+```
     
 ## Service List
 
