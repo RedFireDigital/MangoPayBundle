@@ -26,12 +26,13 @@ abstract class AbstractQuery
      */
     protected $logger;
 
-    public function __construct(MangoPayApi $mangoPayApi, Logger $logger)
+    public function __construct($clientId, $clientPassword, $baseUrl, MangoPayApi $mangoPayApi, Logger $logger)
     {
         $this->mangoPayApi = $mangoPayApi;
-        $this->mangoPayApi->Config->ClientId = 'your-client-id';
-        $this->mangoPayApi->Config->ClientPassword = 'your-client-password';
-        $this->mangoPayApi->Config->TemporaryFolder = '/some/path/';
+        $this->mangoPayApi->Config->ClientId = $clientId;
+        $this->mangoPayApi->Config->ClientPassword = $clientPassword;
+        $this->mangoPayApi->Config->BaseUrl = $baseUrl;
+        $this->mangoPayApi->Config->TemporaryFolder = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'mangopay-'.$clientId;
         $this->mangoPayApi->setLogger($logger);
         $this->logger = $logger;
     }

@@ -14,7 +14,7 @@ namespace PartFire\MangoPayBundle\Models\DTOs;
 
 class User
 {
-    protected $personType;
+    protected $personType = 'NATURAL';
 
     protected $firstName;
 
@@ -189,6 +189,6 @@ class User
      */
     public function getBirthdayUnixTimestamp()
     {
-        return $this->getBirthday()->format('U');
+        return (int) $this->getBirthday()->format('U');
     }
 }

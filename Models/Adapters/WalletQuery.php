@@ -28,9 +28,15 @@ class WalletQuery extends AbstractQuery implements WalletQueryInterface
      */
     protected $walletTranslator;
 
-    public function __construct(MangoPayApi $mangoPayApi, Logger $logger, WalletTranslator $walletTranslator)
-    {
-        parent::__construct($mangoPayApi, $logger);
+    public function __construct(
+        $clientId,
+        $clientPassword,
+        $baseUrl,
+        MangoPayApi $mangoPayApi,
+        Logger $logger,
+        WalletTranslator $walletTranslator
+    ) {
+        parent::__construct($clientId, $clientPassword, $baseUrl,$mangoPayApi, $logger);
         $this->walletTranslator = $walletTranslator;
     }
 

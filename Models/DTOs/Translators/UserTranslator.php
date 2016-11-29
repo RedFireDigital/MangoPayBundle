@@ -23,7 +23,7 @@ class UserTranslator
         $mangoUser->PersonType = $userDto->getPersonType();
         $mangoUser->FirstName = $userDto->getFirstName();
         $mangoUser->LastName = $userDto->getLastName();
-        $mangoUser->Birthday = $userDto->getBirthdayUnixTimestamp();
+        $mangoUser->Birthday = (int) $userDto->getBirthdayUnixTimestamp();
         $mangoUser->Nationality = $userDto->getNationality();
         $mangoUser->CountryOfResidence = $userDto->getCountryOfResidence();
         $mangoUser->Email = $userDto->getEmail();

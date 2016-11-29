@@ -28,9 +28,15 @@ class UserQuery extends AbstractQuery implements UserQueryInterface
      */
     protected $userTranslator;
 
-    public function __construct(MangoPayApi $mangoPayApi, Logger $logger, UserTranslator $userTranslator)
-    {
-        parent::__construct($mangoPayApi, $logger);
+    public function __construct(
+        $clientId,
+        $clientPassword,
+        $baseUrl,
+        MangoPayApi $mangoPayApi,
+        Logger $logger,
+        UserTranslator $userTranslator
+    ) {
+        parent::__construct($clientId, $clientPassword, $baseUrl,$mangoPayApi, $logger);
         $this->userTranslator = $userTranslator;
     }
 

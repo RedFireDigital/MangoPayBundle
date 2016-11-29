@@ -23,7 +23,7 @@ class WalletTranslator
         $mangoWallet->Owners = $walletDto->getOwenerIds();
         $mangoWallet->Description = $walletDto->getDescription();
         $mangoWallet->Currency = $walletDto->getCurrency();
-        if ($mangoWallet->getId()) {
+        if ($walletDto->getId()) {
             $mangoWallet->Id = $walletDto->getId();
         }
         return $mangoWallet;

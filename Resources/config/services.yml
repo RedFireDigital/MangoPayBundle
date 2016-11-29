@@ -1,16 +1,36 @@
 parameters:
-    mango_api.class: '\MangoPay\MangoPayApi'
-    part_fire_mango_pay.dto.user_translator.class: '\PartFire\MangoPayBundle\Models\DTOs\Translators\UserTranslator'
-    part_fire_mango_pay.dto.wallet_translator.class: '\PartFire\MangoPayBundle\Models\DTOs\Translators\WalletTranslator'
+    part_fire_mango_pay.dto.user_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\UserTranslator'
+    part_fire_mango_pay.dto.wallet_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\WalletTranslator'
 
 services:
+    part_fire_mango_pay.vendor_mango_api:
+        class: MangoPay\MangoPayApi
+
+    part_fire_mango_pay.models_dtos_translators.user_translator:
+        class: '%part_fire_mango_pay.dto.user_translator.class%'
+
+    part_fire_mango_pay.models_dtos_translators.wallet_translator:
+        class: '%part_fire_mango_pay.dto.wallet_translator.class%'
+
     part_fire_mango_pay.models_adapters.user_query:
         class: PartFire\MangoPayBundle\Models\Adapters\UserQuery
-        arguments: ['%mango_api.class%', '@logger', '%part_fire_mango_pay.dto.user_translator.class%']
+        arguments:
+            - '%mangopay_client_id%'
+            - '%mangopay_client_password%'
+            - '%mangopay_base_url%'
+            - '@part_fire_mango_pay.vendor_mango_api'
+            - '@logger'
+            - '@part_fire_mango_pay.models_dtos_translators.user_translator'
 
     part_fire_mango_pay.models_adapters.wallet_query:
         class: PartFire\MangoPayBundle\Models\Adapters\WalletQuery
-        arguments: ['%mango_api.class%', '@logger', '%part_fire_mango_pay.dto.wallet_translator.class%']
+        arguments:
+            - '%mangopay_client_id%'
+            - '%mangopay_client_password%'
+            - '%mangopay_base_url%'
+            - '@part_fire_mango_pay.vendor_mango_api'
+            - '@logger'
+            - '@part_fire_mango_pay.models_dtos_translators.wallet_translator'
 
     part_fire_mango_pay.services.user:
         class: PartFire\MangoPayBundle\Services\User
