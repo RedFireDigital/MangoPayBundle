@@ -27,6 +27,12 @@ Add your details to your `app/config/parameters.yml` file.  For example:
     mangopay_client_password: XXXXXXXXXXXXXXXXXXXXXX
     mangopay_base_url: 'https://api.sandbox.mangopay.com'
 ```
+Also add to your `app/AppKernel.php` file:
+
+```php
+    new PartFire\MangoPayBundle\PartFireMangoPayBundle()
+```
+
 ## Example Usage
 
 ### Users
