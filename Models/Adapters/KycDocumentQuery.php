@@ -32,11 +32,14 @@ class KycDocumentQuery extends AbstractQuery implements KycDocumentQueryInterfac
         parent::__construct($clientId, $clientPassword, $baseUrl,$mangoPayApi, $logger);
     }
 
-    public function create(KycDocument $kycDocumentDto)
+    public function create(KycDocument $kycDocumentDto, $shouldSubmit = false)
     {
         $mangoKycDocument = $this->kycDocumentTranslator->convertDTOToMangoKycDocument($kycDocumentDto);
         try {
             $UserId = $kycDocumentDto->getOwnerId();
+            if ($shouldSubmit) {
+                $mangoKycDocument->Status = "VALIDATION_ASKED";
+            }
             $mangoKycDocument = $this->mangoPayApi->Users->CreateKycDocument($UserId, $mangoKycDocument);
 
         } catch(MangoPay\Libraries\ResponseException $e) {
@@ -47,5 +50,10 @@ class KycDocumentQuery extends AbstractQuery implements KycDocumentQueryInterfac
             return new PartFireException($e->getMessage(), $e->getCode());
         }
         return $this->kycDocumentTranslator->convertMangoPayKycDocumentToDTO($mangoKycDocument);
+    }
+
+    public function submit(KycDocument $kycDocumentDto)
+    {
+        return $this->create($kycDocumentDto, true);
     }
 }
