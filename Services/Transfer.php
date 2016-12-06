@@ -12,8 +12,19 @@
 
 namespace PartFire\MangoPayBundle\Services;
 
+use PartFire\MangoPayBundle\Models\TransferQueryInterface;
 
 class Transfer
 {
+    protected $transferQuery;
 
+    public function __construct(TransferQueryInterface $transferQuery)
+    {
+        $this->transferQuery = $transferQuery;
+    }
+
+    public function create(Transfer $transfer)
+    {
+        return $this->transferQuery->create($transfer);
+    }
 }

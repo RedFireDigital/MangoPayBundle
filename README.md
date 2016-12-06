@@ -91,10 +91,11 @@ Also add to your `app/AppKernel.php` file:
     part_fire_mango_pay.services.user
     part_fire_mango_pay.services.wallet
     part_fire_mango_pay.services.kyc
+    part_fire_mango_pay.services.transfer
     
 ### Code Structure Explanation
 
-In the 'Services' directory are the services that should be used my your client code.  There services depend upon interfaces which are located inside the 'Models' directory.  We then have an implementation of these abstractions in the 'Models/Adapters' directory.  This means our services depend upon our abstractions, while the adapters also depend upon our abstractions.  
+In the 'Services' directory are the services that should be used my your client code.  These services depend upon interfaces which are located inside the 'Models' directory.  We then have an implementation of these abstractions in the 'Models/Adapters' directory.  This means our services depend upon our abstractions, while the adapters also depend upon our abstractions.  
 
 The objects passed into the services and then adapters are simple DTOs (data type objects).  These are just keys and values with setters and getters.  We pass these in and out of the adapters so that none of our services / client code is dependant upon the MangoPay SDK.
 
