@@ -16,4 +16,8 @@ use PartFire\MangoPayBundle\Models\DTOs\KycDocument;
 interface KycDocumentQueryInterface
 {
     public function create(KycDocument $kycDocument);
+
+    public function submit(KycDocument $kycDocument);
+
+
 }

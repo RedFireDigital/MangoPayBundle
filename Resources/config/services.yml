@@ -2,6 +2,7 @@ parameters:
     part_fire_mango_pay.dto.user_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\UserTranslator'
     part_fire_mango_pay.dto.wallet_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\WalletTranslator'
     part_fire_mango_pay.dto.kyc_document_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\KycDocumentTranslator'
+    part_fire_mango_pay.dto.kyc_document_page_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\KycDocumentPageTranslator'
 
 services:
     part_fire_mango_pay.vendor_mango_api:
@@ -15,6 +16,9 @@ services:
 
     part_fire_mango_pay.models_dtos_translators.kyc_document_translator:
         class: '%part_fire_mango_pay.dto.kyc_document_translator.class%'
+
+    part_fire_mango_pay.models_dtos_translators.kyc_document_page_translator:
+        class: '%part_fire_mango_pay.dto.kyc_document_page_translator.class%'
 
     part_fire_mango_pay.models_adapters.user_query:
         class: PartFire\MangoPayBundle\Models\Adapters\UserQuery
@@ -46,6 +50,16 @@ services:
             - '@logger'
             - '@part_fire_mango_pay.models_dtos_translators.kyc_document_translator'
 
+    part_fire_mango_pay.models_adapters.kyc_document_page_query:
+        class: PartFire\MangoPayBundle\Models\Adapters\KycDocumentPageQuery
+        arguments:
+            - '%mangopay_client_id%'
+            - '%mangopay_client_password%'
+            - '%mangopay_base_url%'
+            - '@part_fire_mango_pay.vendor_mango_api'
+            - '@logger'
+            - '@part_fire_mango_pay.models_dtos_translators.kyc_document_page_translator'
+
     part_fire_mango_pay.services.user:
         class: PartFire\MangoPayBundle\Services\User
         arguments: ['@part_fire_mango_pay.models_adapters.user_query']
@@ -56,4 +70,6 @@ services:
 
     part_fire_mango_pay.services.kyc:
         class: PartFire\MangoPayBundle\Services\Kyc
-        arguments: ['@part_fire_mango_pay.models_adapters.kyc_document_query']
+        arguments:
+            - '@part_fire_mango_pay.models_adapters.kyc_document_query'
+            - '@part_fire_mango_pay.models_adapters.kyc_document_page_query'

@@ -71,5 +71,6 @@ Add your details to your `app/config/parameters.yml` file.  For example:
 
     part_fire_mango_pay.services.user
     part_fire_mango_pay.services.wallet
+    part_fire_mango_pay.services.kyc
 
 

@@ -5,20 +5,20 @@
  * Copyright © 2016 PartFire Ltd. All rights reserved.
  *
  * User:    Carl Owens
- * Date:    02/12/2016
- * Time:    15:50
- * File:    KycDocumentQuery.php
+ * Date:    06/12/2016
+ * Time:    21:30
+ * File:    KycDocumentPageQuery.php
  **/
 
 namespace PartFire\MangoPayBundle\Models\Adapters;
 
-use PartFire\MangoPayBundle\Models\DTOs\KycDocument;
-use PartFire\MangoPayBundle\Models\DTOs\Translators\KycDocumentTranslator;
-use PartFire\MangoPayBundle\Models\KycDocumentQueryInterface;
+use PartFire\MangoPayBundle\Models\DTOs\KycDocumentPage;
+use PartFire\MangoPayBundle\Models\DTOs\Translators\KycDocumentPageTranslator;
+use PartFire\MangoPayBundle\Models\KycDocumentPageQueryInterface;
 
-class KycDocumentQuery extends AbstractQuery implements KycDocumentQueryInterface
+class KycDocumentPageQuery extends AbstractQuery implements KycDocumentPageQueryInterface
 {
-    protected $kycDocumentTranslator;
+    protected $kycDocumentPageTranslator;
 
     public function __construct(
         $clientId,
@@ -26,18 +26,17 @@ class KycDocumentQuery extends AbstractQuery implements KycDocumentQueryInterfac
         $baseUrl,
         MangoPayApi $mangoPayApi,
         Logger $logger,
-        KycDocumentTranslator $kycDocumentTranslator
+        KycDocumentPageTranslator $kycDocumentPageTranslator
     ) {
-        $this->kycDocumentTranslator = $kycDocumentTranslator;
+        $this->kycDocumentPageTranslator = $kycDocumentPageTranslator;
         parent::__construct($clientId, $clientPassword, $baseUrl,$mangoPayApi, $logger);
     }
 
-    public function create(KycDocument $kycDocumentDto)
+    public function create(KycDocumentPage $kycDocumentPage)
     {
-        $mangoKycDocument = $this->kycDocumentTranslator->convertDTOToMangoKycDocument($kycDocumentDto);
+        $mangoKycDocumentPage = $this->kycDocumentPageTranslator->convertDTOToMangoKycDocumentpage($kycDocumentPage);
         try {
-            $UserId = $kycDocumentDto->getOwnerId();
-            $mangoKycDocument = $this->mangoPayApi->Users->CreateKycDocument($UserId, $mangoKycDocument);
+            $this->mangoPayApi->Users->CreateKycPageFromFile($kycDocumentPage->getKycDocumentId(), $kycDocumentPage->getOwnerId(), $mangoKycDocumentPage);
 
         } catch(MangoPay\Libraries\ResponseException $e) {
             $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
@@ -46,6 +45,6 @@ class KycDocumentQuery extends AbstractQuery implements KycDocumentQueryInterfac
             $this->logger->addError($e->getMessage());
             return new PartFireException($e->getMessage(), $e->getCode());
         }
-        return $this->kycDocumentTranslator->convertMangoPayKycDocumentToDTO($mangoKycDocument);
+        return $kycDocumentPage;
     }
 }

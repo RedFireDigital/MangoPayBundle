@@ -12,16 +12,23 @@
 
 namespace PartFire\MangoPayBundle\Services;
 
-use PartFire\MangoPayBundle\Models\Adapters\KycDocumentQuery;
 use PartFire\MangoPayBundle\Models\DTOs\KycDocument;
+use PartFire\MangoPayBundle\Models\DTOs\KycDocumentPage;
+use PartFire\MangoPayBundle\Models\KycDocumentPageQueryInterface;
+use PartFire\MangoPayBundle\Models\KycDocumentQueryInterface;
 
 class Kyc
 {
     protected $kycDocumentQuery;
 
-    public function __construct(KycDocumentQuery $kycDocumentQuery)
-    {
+    protected $kycDocumentPageQuery;
+
+    public function __construct(
+        KycDocumentQueryInterface $kycDocumentQuery,
+        KycDocumentPageQueryInterface $kycDocumentPageQuery
+    ) {
         $this->kycDocumentQuery = $kycDocumentQuery;
+        $this->kycDocumentPageQuery = $kycDocumentPageQuery;
     }
 
     /**
@@ -31,5 +38,15 @@ class Kyc
     public function createDocument(KycDocument $kycDocument)
     {
         return $this->kycDocumentQuery->create($kycDocument);
+    }
+
+    public function submitDocument(KycDocument $kycDocument)
+    {
+        return $this->kycDocumentQuery->submit($kycDocument);
+    }
+
+    public function createPage(KycDocumentPage $kycDocumentPage)
+    {
+        return $this->kycDocumentPageQuery->create($kycDocumentPage);
     }
 }
