@@ -1,4 +1,4 @@
-# MangoPayBundle
+# MangoPay Bundle for Symfony
 A set of Symfony services for use in your project to ease integration with Mangopay API. 
 
 This bundle depends upon the [official Mangopay SDK PHP for Mangopay API v2](https://github.com/Mangopay/mangopay2-php-sdk).  This means that this bundle only supports Mangopay API version 2.
