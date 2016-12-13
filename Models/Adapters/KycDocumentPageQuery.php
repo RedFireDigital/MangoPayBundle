@@ -12,6 +12,8 @@
 
 namespace PartFire\MangoPayBundle\Models\Adapters;
 
+use MangoPay\MangoPayApi;
+use Monolog\Logger;
 use PartFire\MangoPayBundle\Models\DTOs\KycDocumentPage;
 use PartFire\MangoPayBundle\Models\DTOs\Translators\KycDocumentPageTranslator;
 use PartFire\MangoPayBundle\Models\KycDocumentPageQueryInterface;
