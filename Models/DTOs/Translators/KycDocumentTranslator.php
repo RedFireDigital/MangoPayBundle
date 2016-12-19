@@ -36,6 +36,7 @@ class KycDocumentTranslator
         $kycDocumentDto->setType($mangoKycDocument->Type);
         $kycDocumentDto->setOwnerId($mangoKycDocument->UserId);
         $kycDocumentDto->setStatus($mangoKycDocument->Status);
+        $kycDocumentDto->setDocumentId($mangoKycDocument->Id);
         return $kycDocumentDto;
     }
 }
