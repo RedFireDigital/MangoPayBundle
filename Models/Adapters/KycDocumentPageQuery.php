@@ -57,7 +57,8 @@ class KycDocumentPageQuery extends AbstractQuery implements KycDocumentPageQuery
     {
         $mangoKycDocumentPage = $this->kycDocumentPageTranslator->convertDTOToMangoKycDocumentpage($kycDocumentPage);
         try {
-            $this->mangoPayApi->Users->CreateKycPageFromFile($kycDocumentPage->getKycDocumentId(), $kycDocumentPage->getOwnerId(), $mangoKycDocumentPage->File);
+            $file = file($kycDocumentPageDto->getFilePath());
+            $this->mangoPayApi->Users->CreateKycPageFromFile($kycDocumentPage->getKycDocumentId(), $kycDocumentPage->getOwnerId(), $file);
 
         } catch(ResponseException $e) {
             $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);

@@ -20,7 +20,7 @@ class KycDocumentPageTranslator
 {
     public function convertDTOToMangoKycDocumentpage(KycDocumentPage $kycDocumentPageDto)
     {
-        $fileData = file($kycDocumentPageDto->getFilePath());
+        $fileData = file_get_contents($kycDocumentPageDto->getFilePath());
         $mangoKycDocumentPage = new KycPage();
         $mangoKycDocumentPage->File = $fileData;
         return $mangoKycDocumentPage;
