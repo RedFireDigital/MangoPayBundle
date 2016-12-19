@@ -17,11 +17,26 @@ use Monolog\Logger;
 use PartFire\MangoPayBundle\Models\DTOs\KycDocumentPage;
 use PartFire\MangoPayBundle\Models\DTOs\Translators\KycDocumentPageTranslator;
 use PartFire\MangoPayBundle\Models\KycDocumentPageQueryInterface;
+use MangoPay\Libraries\ResponseException;
+use MangoPay\Libraries\Exception;
+use PartFire\MangoPayBundle\Models\Exception as PartFireException;
 
 class KycDocumentPageQuery extends AbstractQuery implements KycDocumentPageQueryInterface
 {
+    /**
+     * @var KycDocumentPageTranslator
+     */
     protected $kycDocumentPageTranslator;
 
+    /**
+     * KycDocumentPageQuery constructor.
+     * @param $clientId
+     * @param $clientPassword
+     * @param $baseUrl
+     * @param MangoPayApi $mangoPayApi
+     * @param Logger $logger
+     * @param KycDocumentPageTranslator $kycDocumentPageTranslator
+     */
     public function __construct(
         $clientId,
         $clientPassword,
@@ -34,16 +49,20 @@ class KycDocumentPageQuery extends AbstractQuery implements KycDocumentPageQuery
         parent::__construct($clientId, $clientPassword, $baseUrl,$mangoPayApi, $logger);
     }
 
+    /**
+     * @param KycDocumentPage $kycDocumentPage
+     * @return KycDocumentPage|PartFireException
+     */
     public function create(KycDocumentPage $kycDocumentPage)
     {
         $mangoKycDocumentPage = $this->kycDocumentPageTranslator->convertDTOToMangoKycDocumentpage($kycDocumentPage);
         try {
             $this->mangoPayApi->Users->CreateKycPageFromFile($kycDocumentPage->getKycDocumentId(), $kycDocumentPage->getOwnerId(), $mangoKycDocumentPage);
 
-        } catch(MangoPay\Libraries\ResponseException $e) {
+        } catch(ResponseException $e) {
             $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
             return new PartFireException($e->getMessage(), $e->getCode());
-        } catch(MangoPay\Libraries\Exception $e) {
+        } catch(Exception $e) {
             $this->logger->addError($e->getMessage());
             return new PartFireException($e->getMessage(), $e->getCode());
         }

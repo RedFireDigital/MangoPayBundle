@@ -181,7 +181,9 @@ class User
      */
     public function setBirthdayUnixTimestamp($timestamp)
     {
-        $this->setBirthday(\DateTime::createFromFormat('U', $timestamp));
+        $dateTime = \DateTime::createFromFormat('U', $timestamp);
+        if ($dateTime instanceof \DateTime)
+            $this->setBirthday($dateTime);
     }
 
     /**

@@ -25,7 +25,7 @@ class Wallet
     }
 
     /**
-     * @param UserDto $user
+     * @param WalletDto $walletDto
      * @return mixed
      */
     public function create(WalletDto $walletDto)
