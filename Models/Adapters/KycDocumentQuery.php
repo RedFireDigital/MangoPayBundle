@@ -12,9 +12,11 @@
 
 namespace PartFire\MangoPayBundle\Models\Adapters;
 
+use MangoPay\MangoPayApi;
 use PartFire\MangoPayBundle\Models\DTOs\KycDocument;
 use PartFire\MangoPayBundle\Models\DTOs\Translators\KycDocumentTranslator;
 use PartFire\MangoPayBundle\Models\KycDocumentQueryInterface;
+use Symfony\Bridge\Monolog\Logger;
 
 class KycDocumentQuery extends AbstractQuery implements KycDocumentQueryInterface
 {
