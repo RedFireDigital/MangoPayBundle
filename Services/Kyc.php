@@ -42,7 +42,7 @@ class Kyc
 
     public function submitDocument(KycDocument $kycDocument)
     {
-        return $this->kycDocumentQuery->submit($kycDocument, true);
+        return $this->kycDocumentQuery->submit($kycDocument);
     }
 
     public function createPage(KycDocumentPage $kycDocumentPage)
