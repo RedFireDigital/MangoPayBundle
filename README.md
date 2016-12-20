@@ -2,27 +2,20 @@
 
 [![Build Status](https://scrutinizer-ci.com/g/PartFire/MangoPayBundle/badges/build.png?b=master)](https://scrutinizer-ci.com/g/PartFire/MangoPayBundle/build-status/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/PartFire/MangoPayBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/PartFire/MangoPayBundle/?branch=master)
+[![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)](https://packagist.org/packages/partfire/mangopay-bundle)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/71938a84-6958-447f-bce6-d7c55012d883/mini.png)](https://insight.sensiolabs.com/projects/71938a84-6958-447f-bce6-d7c55012d883)
+[![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?style=social&label=Follow)](https://twitter.com/partfire)
 
 A set of Symfony services for use in your project to ease integration with Mangopay API. 
 
-This bundle depends upon the [official Mangopay SDK PHP for Mangopay API v2](https://github.com/Mangopay/mangopay2-php-sdk).  This means that this bundle only supports Mangopay API version 2.
+This bundle depends upon the [official Mangopay SDK PHP for Mangopay API v2](https://github.com/Mangopay/mangopay2-php-sdk).  This means that this bundle only supports Mangopay API version v2.01 but not the earlier versions.  Please check which version you are using.
 
 ## Installation
 
-Add the following to your composer.json file:
-
-    "repositories": [
-            {
-                "type": "vcs",
-                "url": "https://github.com/PartFire/MangoPayBundle"
-            }
-        ]
-Then you can run:
+Using composer you can simply require master for now until we have a stable release:
 
     $ composer require partfire/mangopay-bundle:dev-master
     
-We will add this to packagist when there is a complete set of functionality to create a v1.
-
 ## Configuration
 
 Add your details to your `app/config/parameters.yml` file.  For example:
