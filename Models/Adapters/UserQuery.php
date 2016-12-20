@@ -51,10 +51,10 @@ class UserQuery extends AbstractQuery implements UserQueryInterface
             $mangoUser = $this->mangoPayApi->Users->Create($mangoUser);
         } catch (ResponseException $e) {
             $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
-            return new PartFireException($e->getMessage(), $e->getCode());
+            throw new PartFireException($e->getMessage(), $e->getCode(), $e);
         } catch (Exception $e) {
             $this->logger->addError($e->getMessage());
-            return new PartFireException($e->getMessage(), $e->getCode());
+            throw new PartFireException($e->getMessage(), $e->getCode(), $e);
         }
         return $this->userTranslator->convertMangoPayNaturalUserToDTO($mangoUser);
     }
