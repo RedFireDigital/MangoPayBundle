@@ -28,6 +28,15 @@ class WalletQuery extends AbstractQuery implements WalletQueryInterface
      */
     protected $walletTranslator;
 
+    /**
+     * WalletQuery constructor.
+     * @param $clientId
+     * @param $clientPassword
+     * @param $baseUrl
+     * @param MangoPayApi $mangoPayApi
+     * @param Logger $logger
+     * @param WalletTranslator $walletTranslator
+     */
     public function __construct(
         $clientId,
         $clientPassword,
@@ -45,15 +54,14 @@ class WalletQuery extends AbstractQuery implements WalletQueryInterface
         $mangoWallet = $this->walletTranslator->convertDTOToMangoPayWallet($walletDto);
         try {
             $mangoWallet = $this->mangoPayApi->Wallets->Create($mangoWallet);
-        } catch(MangoPay\Libraries\ResponseException $e) {
+        } catch(ResponseException $e) {
             $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
             return new PartFireException($e->getMessage(), $e->getCode());
-        } catch(MangoPay\Libraries\Exception $e) {
+        } catch(Exception $e) {
             $this->logger->addError($e->getMessage());
             return new PartFireException($e->getMessage(), $e->getCode());
         }
         return $this->walletTranslator->convertMangoPayWalletToDTO($mangoWallet);
-
     }
 
     public function get($walletId)

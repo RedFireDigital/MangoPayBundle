@@ -22,6 +22,8 @@ class KycDocument
 
     protected $ownerId;
 
+    protected $documentId;
+
     /**
      * @return mixed
      */
@@ -84,5 +86,21 @@ class KycDocument
     public function setOwnerId($ownerId)
     {
         $this->ownerId = $ownerId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDocumentId()
+    {
+        return $this->documentId;
+    }
+
+    /**
+     * @param mixed $documentId
+     */
+    public function setDocumentId($documentId)
+    {
+        $this->documentId = $documentId;
     }
 }

@@ -17,6 +17,9 @@ use PartFire\MangoPayBundle\Models\DTOs\KycDocument;
 use PartFire\MangoPayBundle\Models\DTOs\Translators\KycDocumentTranslator;
 use PartFire\MangoPayBundle\Models\KycDocumentQueryInterface;
 use Symfony\Bridge\Monolog\Logger;
+use MangoPay\Libraries\ResponseException;
+use MangoPay\Libraries\Exception;
+use PartFire\MangoPayBundle\Models\Exception as PartFireException;
 
 class KycDocumentQuery extends AbstractQuery implements KycDocumentQueryInterface
 {
@@ -44,10 +47,10 @@ class KycDocumentQuery extends AbstractQuery implements KycDocumentQueryInterfac
             }
             $mangoKycDocument = $this->mangoPayApi->Users->CreateKycDocument($UserId, $mangoKycDocument);
 
-        } catch(MangoPay\Libraries\ResponseException $e) {
+        } catch(ResponseException $e) {
             $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
             return new PartFireException($e->getMessage(), $e->getCode());
-        } catch(MangoPay\Libraries\Exception $e) {
+        } catch(Exception $e) {
             $this->logger->addError($e->getMessage());
             return new PartFireException($e->getMessage(), $e->getCode());
         }

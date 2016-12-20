@@ -33,13 +33,16 @@ class Wallet
     }
 
     /**
-     * @param mixed $owenerId
+     * @param mixed $owenerIds
      */
     public function setOwenerIds(array $owenerIds)
     {
         $this->owenerIds = $owenerIds;
     }
 
+    /**
+     * @param $owenerId
+     */
     public function setOwenerId($owenerId)
     {
         $this->owenerIds[] = $owenerId;

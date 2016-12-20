@@ -12,10 +12,14 @@
 
 namespace PartFire\MangoPayBundle\Models\Adapters;
 
-
 use PartFire\MangoPayBundle\Models\DTOs\Transfer;
 use PartFire\MangoPayBundle\Models\DTOs\Translators\TransferTranslator;
 use PartFire\MangoPayBundle\Models\TransferQueryInterface;
+use MangoPay\Libraries\ResponseException;
+use MangoPay\Libraries\Exception;
+use PartFire\MangoPayBundle\Models\Exception as PartFireException;
+use Symfony\Bridge\Monolog\Logger;
+use MangoPay\MangoPayApi;
 
 class TransferQuery extends AbstractQuery implements TransferQueryInterface
 {
@@ -24,6 +28,15 @@ class TransferQuery extends AbstractQuery implements TransferQueryInterface
      */
     protected $transferTranslator;
 
+    /**
+     * TransferQuery constructor.
+     * @param $clientId
+     * @param $clientPassword
+     * @param $baseUrl
+     * @param MangoPayApi $mangoPayApi
+     * @param Logger $logger
+     * @param TransferTranslator $transferTranslator
+     */
     public function __construct(
         $clientId,
         $clientPassword,
@@ -37,7 +50,7 @@ class TransferQuery extends AbstractQuery implements TransferQueryInterface
     }
 
     /**
-     * @param User $userDto
+     * @param Transfer $transferDto
      * @return User|PartFireException
      */
     public function create(Transfer $transferDto)

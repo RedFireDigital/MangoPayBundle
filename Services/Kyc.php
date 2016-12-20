@@ -37,7 +37,7 @@ class Kyc
      */
     public function createDocument(KycDocument $kycDocument)
     {
-        return $this->kycDocumentQuery->create($kycDocument);
+        return $this->kycDocumentQuery->create($kycDocument, false);
     }
 
     public function submitDocument(KycDocument $kycDocument)

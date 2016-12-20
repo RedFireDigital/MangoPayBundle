@@ -13,6 +13,7 @@
 namespace PartFire\MangoPayBundle\Services;
 
 use PartFire\MangoPayBundle\Models\TransferQueryInterface;
+use PartFire\MangoPayBundle\Models\DTOs\Transfer as TransferDto;
 
 class Transfer
 {
@@ -23,7 +24,7 @@ class Transfer
         $this->transferQuery = $transferQuery;
     }
 
-    public function create(Transfer $transfer)
+    public function create(TransferDto $transfer)
     {
         return $this->transferQuery->create($transfer);
     }
