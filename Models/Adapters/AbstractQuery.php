@@ -32,7 +32,7 @@ abstract class AbstractQuery
         $this->mangoPayApi->Config->ClientId = $clientId;
         $this->mangoPayApi->Config->ClientPassword = $clientPassword;
         $this->mangoPayApi->Config->BaseUrl = $baseUrl;
-        $this->mangoPayApi->Config->TemporaryFolder = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'mangopay-'.$clientId;
+        $this->mangoPayApi->Config->TemporaryFolder = sys_get_temp_dir();
         $this->mangoPayApi->setLogger($logger);
         $this->logger = $logger;
     }
