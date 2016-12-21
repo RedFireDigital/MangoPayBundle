@@ -27,6 +27,7 @@ class UserTranslator
         $mangoUser->Nationality = $userDto->getNationality();
         $mangoUser->CountryOfResidence = $userDto->getCountryOfResidence();
         $mangoUser->Email = $userDto->getEmail();
+        $mangoUser->Tag = $userDto->getTag();
         if ($userDto->getId()) {
             $mangoUser->Id = $userDto->getId();
         }

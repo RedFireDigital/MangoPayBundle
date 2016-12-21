@@ -32,6 +32,8 @@ class User
 
     protected $KYCLevel;
 
+    protected $tag;
+
     /**
      * @return mixed
      */
@@ -174,6 +176,22 @@ class User
     public function setKYCLevel($KYCLevel)
     {
         $this->KYCLevel = $KYCLevel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
+
+    /**
+     * @param mixed $tag
+     */
+    public function setTag($tag)
+    {
+        $this->tag = $tag;
     }
 
     /**
