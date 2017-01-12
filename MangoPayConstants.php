@@ -7,7 +7,7 @@
  * User:    gra
  * Date:    31/12/16
  * Time:    00:53
- * Project: fruitful-property-investments
+ * Project: PartFire MangoPay Bundle
  * File:    MangoPayConstants.php
  *
  **/
@@ -17,6 +17,22 @@ namespace PartFire\MangoPayBundle;
 
 class MangoPayConstants
 {
+    const       NATURAL_PERSON_TYPE                 = 'NATURAL';
+    const       LEAGAL_PERSON_TYPE                  = 'LEGAL';
+
+    //  https://docs.mangopay.com/endpoints/v2.01/users#e259_create-a-legal-user
+
+    //  May also help https://www.gov.uk/business-legal-structures/overview
+
+    const       LEAGAL_PERSON_TYPE_SOLETRADER       = 'SOLETRADER';
+    const       LEAGAL_PERSON_TYPE_ORGANISATION     = 'ORGANIZATION';
+    const       LEAGAL_PERSON_TYPE_BUSINESS         = 'BUSINESS';
+
+    //  https://docs.mangopay.com/endpoints/v2.01/users#e253_the-user-object
+
+    const       KYC_LEVEL_LIGHT                     = 'LIGHT';
+    const       KYC_LEVEL_REGULAR                   = 'REGULAR';
+
     // https://docs.mangopay.com/endpoints/v2/users#e254_the-natural-user-object
 
     public static function getIncomeRangeFromId(int $id) : string
@@ -45,5 +61,18 @@ class MangoPayConstants
         }
 
         return $range;
+    }
+
+    public static function isPersonTypeOk($personType)
+    {
+        return in_array($personType, self::getPersonTypeArray());
+    }
+
+    public static function getPersonTypeArray()
+    {
+        return [
+            self::NATURAL_PERSON_TYPE,
+            self::LEAGAL_PERSON_TYPE
+        ];
     }
 }

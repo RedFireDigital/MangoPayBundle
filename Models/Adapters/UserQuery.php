@@ -17,6 +17,7 @@ use MangoPay\Libraries\ResponseException;
 use MangoPay\MangoPayApi;
 use PartFire\MangoPayBundle\Models\DTOs\Translators\UserTranslator;
 use PartFire\MangoPayBundle\Models\DTOs\User;
+use PartFire\MangoPayBundle\Models\DTOs\UserBase;
 use PartFire\MangoPayBundle\Models\Exception as PartFireException;
 use PartFire\MangoPayBundle\Models\UserQueryInterface;
 use Symfony\Bridge\Monolog\Logger;
@@ -53,7 +54,7 @@ class UserQuery extends AbstractQuery implements UserQueryInterface
      * @param User $userDto
      * @return User|PartFireException
      */
-    public function create(User $userDto)
+    public function create(UserBase $userDto)
     {
         $mangoUser = $this->userTranslator->convertDTOToMangoPayNaturalUser($userDto);
         try {
@@ -78,7 +79,7 @@ class UserQuery extends AbstractQuery implements UserQueryInterface
         // TODO: Implement getAll() method.
     }
 
-    public function update(User $userDto)
+    public function update(UserBase $userDto)
     {
         // TODO: Implement update() method.
     }

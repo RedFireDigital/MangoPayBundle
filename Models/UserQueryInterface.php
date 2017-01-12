@@ -11,17 +11,17 @@
  **/
 namespace PartFire\MangoPayBundle\Models;
 
-use PartFire\MangoPayBundle\Models\DTOs\User;
+use PartFire\MangoPayBundle\Models\DTOs\UserBase;
 
 interface UserQueryInterface
 {
-    public function create(User $userDto);
+    public function create(UserBase $userDto);
 
     public function get($userId);
 
     public function getAll();
 
-    public function update(User $userDto);
+    public function update(UserBase $userDto);
 
     public function delete($userId);
 }

@@ -12,7 +12,7 @@
 
 namespace PartFire\MangoPayBundle\Services;
 
-use PartFire\MangoPayBundle\Models\DTOs\User as UserDto;
+use PartFire\MangoPayBundle\Models\DTOs\UserBase as UserDto;
 use PartFire\MangoPayBundle\Models\UserQueryInterface;
 
 class User
