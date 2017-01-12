@@ -49,4 +49,9 @@ class Kyc
     {
         return $this->kycDocumentPageQuery->create($kycDocumentPage);
     }
+
+    public function getDocument(int $kycDocumentId)
+    {
+        return $this->kycDocumentPageQuery->get($kycDocument);
+    }
 }
