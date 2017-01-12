@@ -32,6 +32,8 @@ class UserNatural extends UserBase
 
     private $incomeRange;
 
+    private $address;
+
 
     /**
      * @return mixed
@@ -68,15 +70,15 @@ class UserNatural extends UserBase
     /**
      * @return mixed
      */
-    public function getBirthday() : string
+    public function getBirthday()
     {
-        return $this->birthday->format('U');;
+        return $this->birthday;
     }
 
     /**
      * @param mixed $birthday
      */
-    public function setBirthday(\DateTime $birthday)
+    public function setBirthday($birthday)
     {
         $this->birthday = $birthday;
     }
@@ -144,6 +146,23 @@ class UserNatural extends UserBase
     {
         $this->incomeRange = $incomeRange;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAddress() : Address
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param mixed $address
+     */
+    public function setAddress(Address $address)
+    {
+        $this->address = $address;
+    }
+
 
 
 }

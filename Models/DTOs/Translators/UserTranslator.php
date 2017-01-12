@@ -14,7 +14,11 @@ namespace PartFire\MangoPayBundle\Models\DTOs\Translators;
 
 use MangoPay\UserLegal;
 use MangoPay\UserNatural;
+use MangoPay\Address;
+
 use PartFire\MangoPayBundle\MangoPayConstants;
+use PartFire\MangoPayBundle\Models\DTOs\UserBase;
+use PartFire\MangoPayBundle\Models\DTOs\Address as PFAddress;
 use PartFire\MangoPayBundle\Models\DTOs\UserNatural as PFUserNatural;
 use PartFire\MangoPayBundle\Models\DTOs\UserLegal as PFUserLegal;
 
@@ -31,6 +35,7 @@ class UserTranslator
         $mangoUser->CountryOfResidence = $userDto->getCountryOfResidence();
         $mangoUser->Email = $userDto->getEmail();
         $mangoUser->Tag = $userDto->getTag();
+        $mangoUser->Address = $this->getConvertDTOToMangoPayAddress($userDto->getAddress());
         if ($userDto->getId()) {
             $mangoUser->Id = $userDto->getId();
         }
@@ -49,6 +54,7 @@ class UserTranslator
         $userDto->setEmail($mangoUser->Email);
         $userDto->setId($mangoUser->Id);
         $userDto->setKYCLevel($mangoUser->KYCLevel);
+        $userDto->setAddress($this->getConvertMangoAddressToDTO($mangoUser->Address));
         return $userDto;
     }
 
@@ -82,6 +88,30 @@ class UserTranslator
         $userDto->setId($mangoUser->Id);
         $userDto->setKYCLevel($mangoUser->KYCLevel);
         return $userDto;
+    }
+
+    private function getConvertDTOToMangoPayAddress(PFAddress $pfAddress)
+    {
+        $address = new Address();
+        $address->AddressLine1 = $pfAddress->getAddressLine1();
+        $address->AddressLine2 = $pfAddress->getAddressLine2();
+        $address->City = $pfAddress->getCity();
+        $address->Region = $pfAddress->getRegion();
+        $address->PostalCode = $pfAddress->getPostalCode();
+        $address->Country = $pfAddress->getCountry();
+    }
+
+    private function getConvertMangoAddressToDTO(Address $address)
+    {
+        $pfAddress = new PFAddress();
+        $pfAddress->setAddressLine1($address->AddressLine1);
+        $pfAddress->setAddressLine2($address->AddressLine2);
+        $pfAddress->setCity($address->City);
+        $pfAddress->setRegion($address->Region);
+        $pfAddress->setPostalCode($address->PostalCode);
+        $pfAddress->setCountry($address->Country);
+
+        return $pfAddress;
     }
 
 }

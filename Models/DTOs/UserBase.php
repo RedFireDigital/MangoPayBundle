@@ -125,8 +125,30 @@ class UserBase
         foreach ($array as $key => $value)
         {
             $methodName = 'set' . $key;
+
+            if ($key instanceof \DateTime) {
+                $value = $key->format('U');
+            }
+
+            if ($key == 'Address') {
+                $value = $this->getAddressDTO($value);
+            }
+
             $this->$methodName($value);
         }
+    }
+
+    protected function getAddressDTO(array $addressArray)
+    {
+        $value = new Address();
+        $value->setAddressLine1($addressArray['AddressLine1']);
+        $value->setAddressLine1($addressArray['AddressLine2']);
+        $value->setAddressLine1($addressArray['City']);
+        $value->setAddressLine1($addressArray['Region']);
+        $value->setAddressLine1($addressArray['PostalCode']);
+        $value->setAddressLine1($addressArray['Country']);
+
+        return $value;
     }
 
 }

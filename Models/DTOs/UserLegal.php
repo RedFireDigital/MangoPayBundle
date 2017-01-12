@@ -83,7 +83,7 @@ class UserLegal extends UserBase
      */
     public function getLegalRepresentativeBirthday()
     {
-        return $this->legalRepresentativeBirthday->format('U');
+        return $this->legalRepresentativeBirthday;
     }
 
     /**
