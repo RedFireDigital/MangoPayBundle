@@ -18,6 +18,8 @@ use MangoPay\MangoPayApi;
 use PartFire\MangoPayBundle\Models\DTOs\Translators\UserTranslator;
 use PartFire\MangoPayBundle\Models\DTOs\User;
 use PartFire\MangoPayBundle\Models\DTOs\UserBase;
+use PartFire\MangoPayBundle\Models\DTOs\UserLegal as PFUserLegal;
+use PartFire\MangoPayBundle\Models\DTOs\UserNatural as PFUserNatural;
 use PartFire\MangoPayBundle\Models\Exception as PartFireException;
 use PartFire\MangoPayBundle\Models\UserQueryInterface;
 use Symfony\Bridge\Monolog\Logger;
@@ -50,11 +52,7 @@ class UserQuery extends AbstractQuery implements UserQueryInterface
         $this->userTranslator = $userTranslator;
     }
 
-    /**
-     * @param User $userDto
-     * @return User|PartFireException
-     */
-    public function create(UserBase $userDto)
+    public function createNatural(PFUserNatural $userDto)
     {
         $mangoUser = $this->userTranslator->convertDTOToMangoPayNaturalUser($userDto);
         try {
@@ -67,6 +65,11 @@ class UserQuery extends AbstractQuery implements UserQueryInterface
             throw new PartFireException($e->getMessage(), $e->getCode(), $e);
         }
         return $this->userTranslator->convertMangoPayNaturalUserToDTO($mangoUser);
+    }
+
+    public function createLegal(PFUserLegal $userDto)
+    {
+        // TODO: Implement createLegal() method.
     }
 
     public function get($userId)

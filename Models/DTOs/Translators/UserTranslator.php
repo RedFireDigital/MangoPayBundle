@@ -99,6 +99,8 @@ class UserTranslator
         $address->Region = $pfAddress->getRegion();
         $address->PostalCode = $pfAddress->getPostalCode();
         $address->Country = $pfAddress->getCountry();
+
+        return $address;
     }
 
     private function getConvertMangoAddressToDTO(Address $address)

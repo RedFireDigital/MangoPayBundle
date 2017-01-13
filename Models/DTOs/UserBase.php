@@ -142,11 +142,11 @@ class UserBase
     {
         $value = new Address();
         $value->setAddressLine1($addressArray['AddressLine1']);
-        $value->setAddressLine1($addressArray['AddressLine2']);
-        $value->setAddressLine1($addressArray['City']);
-        $value->setAddressLine1($addressArray['Region']);
-        $value->setAddressLine1($addressArray['PostalCode']);
-        $value->setAddressLine1($addressArray['Country']);
+        $value->setAddressLine2($addressArray['AddressLine2']);
+        $value->setCity($addressArray['City']);
+        $value->setRegion($addressArray['Region']);
+        $value->setPostalCode($addressArray['PostalCode']);
+        $value->setCountry($addressArray['Country']);
 
         return $value;
     }
