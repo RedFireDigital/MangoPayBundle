@@ -36,6 +36,8 @@ class UserTranslator
         $mangoUser->Email = $userDto->getEmail();
         $mangoUser->Tag = $userDto->getTag();
         $mangoUser->Address = $this->getConvertDTOToMangoPayAddress($userDto->getAddress());
+        $mangoUser->IncomeRange = $userDto->getIncomeRange();
+        $mangoUser->Occupation = $userDto->getOccupation();
         if ($userDto->getId()) {
             $mangoUser->Id = $userDto->getId();
         }
@@ -55,6 +57,8 @@ class UserTranslator
         $userDto->setId($mangoUser->Id);
         $userDto->setKYCLevel($mangoUser->KYCLevel);
         $userDto->setAddress($this->getConvertMangoAddressToDTO($mangoUser->Address));
+        $userDto->setOccupation($mangoUser->Occupation);
+        $userDto->setIncomeRange($mangoUser->IncomeRange);
         return $userDto;
     }
 
