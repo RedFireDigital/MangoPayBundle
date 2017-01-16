@@ -74,6 +74,15 @@ services:
             - '@logger'
             - '@part_fire_mango_pay.models_dtos_translators.transfer_translator'
 
+    part_fire_mango_pay.models_adapters.hook_query:
+        class: PartFire\MangoPayBundle\Models\Adapters\HookQuery
+        arguments:
+            - '%mangopay_client_id%'
+            - '%mangopay_client_password%'
+            - '%mangopay_base_url%'
+            - '@part_fire_mango_pay.vendor_mango_api'
+            - '@logger'
+
     part_fire_mango_pay.services.user:
         class: PartFire\MangoPayBundle\Services\User
         arguments: ['@part_fire_mango_pay.models_adapters.user_query']
@@ -81,6 +90,10 @@ services:
     part_fire_mango_pay.services.wallet:
         class: PartFire\MangoPayBundle\Services\Wallet
         arguments: ['@part_fire_mango_pay.models_adapters.wallet_query']
+
+    part_fire_mango_pay.services.hook:
+        class: PartFire\MangoPayBundle\Services\Hook
+        arguments: ['@part_fire_mango_pay.models_adapters.hook_query']
 
     part_fire_mango_pay.services.kyc:
         class: PartFire\MangoPayBundle\Services\Kyc
