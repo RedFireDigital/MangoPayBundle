@@ -18,15 +18,15 @@ namespace PartFire\MangoPayBundle;
 class MangoPayConstants
 {
     const       NATURAL_PERSON_TYPE                 = 'NATURAL';
-    const       LEAGAL_PERSON_TYPE                  = 'LEGAL';
+    const       LEGAL_PERSON_TYPE                   = 'LEGAL';
 
     //  https://docs.mangopay.com/endpoints/v2.01/users#e259_create-a-legal-user
 
     //  May also help https://www.gov.uk/business-legal-structures/overview
 
-    const       LEAGAL_PERSON_TYPE_SOLETRADER       = 'SOLETRADER';
-    const       LEAGAL_PERSON_TYPE_ORGANISATION     = 'ORGANIZATION';
-    const       LEAGAL_PERSON_TYPE_BUSINESS         = 'BUSINESS';
+    const       LEGAL_PERSON_TYPE_SOLETRADER        = 'SOLETRADER';
+    const       LEGAL_PERSON_TYPE_ORGANISATION      = 'ORGANIZATION';
+    const       LEGAL_PERSON_TYPE_BUSINESS          = 'BUSINESS';
 
     //  https://docs.mangopay.com/endpoints/v2.01/users#e253_the-user-object
 
@@ -72,7 +72,7 @@ class MangoPayConstants
     {
         return [
             self::NATURAL_PERSON_TYPE,
-            self::LEAGAL_PERSON_TYPE
+            self::LEGAL_PERSON_TYPE
         ];
     }
 }

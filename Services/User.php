@@ -13,6 +13,8 @@
 namespace PartFire\MangoPayBundle\Services;
 
 use PartFire\MangoPayBundle\Models\DTOs\UserBase as UserDto;
+use PartFire\MangoPayBundle\Models\DTOs\UserLegal;
+use PartFire\MangoPayBundle\Models\DTOs\UserNatural;
 use PartFire\MangoPayBundle\Models\UserQueryInterface;
 
 class User
@@ -31,8 +33,13 @@ class User
      * @param UserDto $user
      * @return mixed
      */
-    public function create(UserDto $user)
+    public function createNatural(UserNatural $user)
     {
-        return $this->userQuery->create($user);
+        return $this->userQuery->createNatural($user);
+    }
+
+    public function createLegal(UserLegal $user)
+    {
+        return $this->userQuery->createLegal($user);
     }
 }

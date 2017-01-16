@@ -12,10 +12,14 @@
 namespace PartFire\MangoPayBundle\Models;
 
 use PartFire\MangoPayBundle\Models\DTOs\UserBase;
+use PartFire\MangoPayBundle\Models\DTOs\UserLegal as PFUserLegal;
+use PartFire\MangoPayBundle\Models\DTOs\UserNatural as PFUserNatural;
 
 interface UserQueryInterface
 {
-    public function create(UserBase $userDto);
+    public function createNatural(PFUserNatural $userDto);
+
+    public function createLegal(PFUserLegal $userDto);
 
     public function get($userId);
 
