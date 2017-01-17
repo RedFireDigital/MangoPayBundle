@@ -2,13 +2,13 @@
 /**
  * Created by Graham Owens (gra@partfire.co.uk)
  * Company: PartFire Ltd (www.partfire.co.uk)
- * Console: Discovery
+ * Console: Relativity
  *
  * User:    gra
- * Date:    16/01/17
- * Time:    16:11
+ * Date:    16/01/2017
+ * Time:    23:07
  * Project: PartFire MangoPay Bundle
- * File:    HookCreateAllCommand.php
+ * File:    HookUpdateAllCommand.php
  *
  **/
 
@@ -18,7 +18,6 @@ use Fruitful\IdentityCheckBundle\Entity\IdentityCheck;
 use Fruitful\IdentityCheckBundle\Entity\Repository\IdentityCheckFactoryRepository;
 use Fruitful\IdentityCheckBundle\Event\IdentityCheckUpdateEvent;
 use PartFire\CommonBundle\Services\Output\Cli\ConsoleOutput;
-use PartFire\MangoPayBundle\MangoPayConstants;
 use PartFire\MangoPayBundle\Services\Hook;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -29,7 +28,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class HookCreateAllCommand extends ContainerAwareCommand
+class HookUpdateAllCommand extends ContainerAwareCommand
 {
 
     private $output;
@@ -37,8 +36,8 @@ class HookCreateAllCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('partfire:mangopay:hook-create-all')
-            ->setDescription('Points all known hooks to a single endpoint')
+            ->setName('partfire:mangopay:hook-update-all')
+            ->setDescription('Update all hook urls')
         ;
 
     }
@@ -48,14 +47,20 @@ class HookCreateAllCommand extends ContainerAwareCommand
         $this->output = $this->getConsoleOutPutter();
         $this->output->setOutputer($output);
 
-        $url = 'http://stage.fruitful.co/';
+        $this->output->info("Listing all hooks with MangoPay");
 
-        $this->output->info("Create all hooks to point to a single end point");
+        $url = 'https://stage.fruitful.co/updated';
 
-        foreach (MangoPayConstants::getAllEventTypes() as $eventType) {
-            $this->output->infoid("Creating end point for " . $eventType);
-            var_dump($this->getHookService()->create($eventType, $url));
+        $responses = [];
+
+        $hookItems = $this->getHookService()->list();
+        foreach($hookItems as $hook) {
+            $hookId = $hook->Id;
+            $this->output->infoid("Updating Hook ID " . $hookId . " with " . $url);
+            $responses[] = $this->getHookService()->update($hookId, $url);
         }
+
+        var_dump($responses);
     }
 
     private function showTitle($title)

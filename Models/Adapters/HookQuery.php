@@ -14,8 +14,9 @@
 
 namespace PartFire\MangoPayBundle\Models\Adapters;
 
-
 use MangoPay\MangoPayApi;
+use MangoPay\Hook;
+use PartFire\MangoPayBundle\Models\DTOs\Hook as PFHook;
 use PartFire\MangoPayBundle\Models\HookQueryInterface;
 use Symfony\Bridge\Monolog\Logger;
 
@@ -39,14 +40,36 @@ class HookQuery extends AbstractQuery implements HookQueryInterface
         return $this->mangoPayApi->Hooks->GetAll();
     }
 
-    public function create($hookEventName)
+    public function create($hookEventName, $url)
     {
-        $this->mangoPayApi->Hooks->Create($hookEventName)
+        $newHook = new PFHook();
+        $newHook->setEventType($hookEventName);
+        $newHook->setUrl($url);
+        $newHook->setTag("FF-Console");
+
+        return $this->mangoPayApi->Hooks->Create($this->transferFromDTOToMango($newHook));
     }
 
-    public function update()
+    public function update($hookId, $url)
     {
-        // TODO: Implement update() method.
+        $updateHook = new PFHook();
+        $updateHook->setId($hookId);
+        $updateHook->setUrl($url);
+
+        return $this->mangoPayApi->Hooks->Update($this->transferFromDTOToMango($updateHook));
+    }
+
+    private function transferFromDTOToMango(PFHook $hook) : Hook
+    {
+        $newHook = new Hook();
+        $newHook->EventType = $hook->getEventType();
+        $newHook->Url = $hook->getUrl();
+
+        if (!is_null($hook->getId())) {
+            $newHook->Id = $hook->getId();
+        }
+
+        return $newHook;
     }
 
 }

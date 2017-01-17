@@ -19,7 +19,7 @@ interface HookQueryInterface
 {
     public function list();
 
-    public function create();
+    public function create($hookEventName, $url);
 
-    public function update();
+    public function update($hookId, $url);
 }

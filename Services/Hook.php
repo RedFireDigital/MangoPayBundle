@@ -30,13 +30,13 @@ class Hook implements HookQueryInterface
         return $this->hookQuery->list();
     }
 
-    public function create()
+    public function create($hookEventName, $url)
     {
-        // TODO: Implement create() method.
+        return $this->hookQuery->create($hookEventName, $url);
     }
 
-    public function update()
+    public function update($hookId, $url)
     {
-        // TODO: Implement update() method.
+        return $this->hookQuery->update($hookId, $url);
     }
 }
