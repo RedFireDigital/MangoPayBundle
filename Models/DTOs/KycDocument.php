@@ -12,9 +12,11 @@
 
 namespace PartFire\MangoPayBundle\Models\DTOs;
 
+use PartFire\MangoPayBundle\MangoPayConstants;
+
 class KycDocument
 {
-    protected $type = "IDENTITY_PROOF";
+    protected $type = MangoPayConstants::IDENTITY_PROOF;
 
     protected $status;
 

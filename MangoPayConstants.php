@@ -35,6 +35,13 @@ class MangoPayConstants
 
     // https://docs.mangopay.com/endpoints/v2/users#e254_the-natural-user-object
 
+    // KYC Doc types = https://docs.mangopay.com/endpoints/v2.01/kyc-documents#e205_create-a-kyc-document
+    const       IDENTITY_PROOF                      = 'IDENTITY_PROOF';
+    const       REGISTRATION_PROOF                  = 'REGISTRATION_PROOF';
+    const       ARTICLES_OF_ASSOCIATION             = 'ARTICLES_OF_ASSOCIATION';
+    const       SHAREHOLDER_DECLARATION             = 'SHAREHOLDER_DECLARATION';
+    const       ADDRESS_PROOF                       = 'ADDRESS_PROOF';
+
     public static function getIncomeRangeFromId(int $id) : string
     {
         switch ($id) {
@@ -73,6 +80,22 @@ class MangoPayConstants
         return [
             self::NATURAL_PERSON_TYPE,
             self::LEGAL_PERSON_TYPE
+        ];
+    }
+
+    public static function isDocumentTypeOk($documentType)
+    {
+        return in_array($documentType, self::getDocumentTypeArray());
+    }
+
+    public static function getDocumentTypeArray()
+    {
+        return [
+            self::IDENTITY_PROOF,
+            self::REGISTRATION_PROOF,
+            self::ARTICLES_OF_ASSOCIATION,
+            self::SHAREHOLDER_DECLARATION,
+            self::ADDRESS_PROOF
         ];
     }
 
