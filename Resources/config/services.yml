@@ -26,7 +26,7 @@ services:
         class: '%part_fire_mango_pay.dto.transfer_translator.class%'
 
     part_fire_mango_pay.models_dtos_translators.card_translator:
-        class: '%art_fire_mango_pay.dto.card_translator.class%'
+        class: '%part_fire_mango_pay.dto.card_translator.class%'
 
     part_fire_mango_pay.models_adapters.user_query:
         class: PartFire\MangoPayBundle\Models\Adapters\UserQuery
@@ -88,7 +88,7 @@ services:
             - '@logger'
 
     part_fire_mango_pay.models_adapters.card_query:
-        class: PartFire\MangoPayBundle\Models\Adapters\CardQuery
+        class: PartFire\MangoPayBundle\Models\Adapters\CardRegistrationsQuery
         arguments:
             - '%mangopay_client_id%'
             - '%mangopay_client_password%'

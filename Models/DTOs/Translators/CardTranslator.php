@@ -12,15 +12,14 @@
 
 namespace PartFire\MangoPayBundle\Models\DTOs\Translators;
 
-
 use MangoPay\CardRegistration;
-use PartFire\MangoPayBundle\Models\DTOs\Card;
+use PartFire\MangoPayBundle\Models\DTOs\CardRegistration as CardRegistrationDto;
 
 class CardTranslator
 {
-    public function translateMangoDataToDto(CardRegistration $cardRegistration)
+    public function translateMangoCardRegistrationDataToDto(CardRegistration $cardRegistration)
     {
-        $cartDto = new Card();
+        $cartDto = new CardRegistrationDto();
         $cartDto->setAccessKey($cardRegistration->AccessKey);
         $cartDto->setCardId($cardRegistration->CardId);
         $cartDto->setCardRegistrationUrl($cardRegistration->CardRegistrationURL);

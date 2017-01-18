@@ -12,8 +12,7 @@
 
 namespace PartFire\MangoPayBundle\Models\DTOs;
 
-
-class Card
+class CardRegistration
 {
     private $id;
 

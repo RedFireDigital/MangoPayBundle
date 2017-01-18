@@ -12,16 +12,16 @@
 
 namespace PartFire\MangoPayBundle\Services;
 
-use PartFire\MangoPayBundle\Models\CardQueryInterface;
+use PartFire\MangoPayBundle\Models\CardRegistrationsQueryInterface;
 
 class Card
 {
     /**
-     * @var CardQueryInterface
+     * @var CardRegistrationsQueryInterface
      */
     private $cardQuery;
 
-    public function __construct(CardQueryInterface $cardQuery)
+    public function __construct(CardRegistrationsQueryInterface $cardQuery)
     {
         $this->cardQuery = $cardQuery;
     }

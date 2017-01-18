@@ -16,15 +16,15 @@ namespace PartFire\MangoPayBundle\Models\Adapters;
 use MangoPay\CardRegistration;
 use MangoPay\CardRegistrationStatus;
 use MangoPay\MangoPayApi;
-use PartFire\MangoPayBundle\Models\CardQueryInterface;
-use PartFire\MangoPayBundle\Models\DTOs\Card;
+use PartFire\MangoPayBundle\Models\CardRegistrationsQueryInterface;
+use PartFire\MangoPayBundle\Models\DTOs\CardRegistration as CardRegistrationDto;
 use PartFire\MangoPayBundle\Models\DTOs\Translators\CardTranslator;
 use Symfony\Bridge\Monolog\Logger;
 use PartFire\MangoPayBundle\Models\Exception as PartFireException;
 use MangoPay\Libraries\Exception;
 use MangoPay\Libraries\ResponseException;
 
-class CardQuery extends AbstractQuery implements CardQueryInterface
+class CardRegistrationsQuery extends AbstractQuery implements CardRegistrationsQueryInterface
 {
     /**
      * @var CardTranslator
@@ -43,17 +43,7 @@ class CardQuery extends AbstractQuery implements CardQueryInterface
         $this->cardTranslator = $cardTranslator;
     }
 
-    public function get($cardId): ? Card
-    {
-        // TODO: Implement get() method.
-    }
-
-    public function getRegistration($cardRegistrationId): ? Card
-    {
-        // TODO: Implement getRegistration() method.
-    }
-
-    public function create(string $userId, string $currency, string $cardType, string $tag): ? Card
+    public function create(string $userId, string $currency, string $cardType, string $tag): ? CardRegistrationDto
     {
         try {
             $CardRegistration = new CardRegistration();
@@ -63,7 +53,7 @@ class CardQuery extends AbstractQuery implements CardQueryInterface
             $CardRegistration->CardType = $cardType;
 
             $cardRegistration = $this->mangoPayApi->CardRegistrations->Create($CardRegistration);
-            return $this->cardTranslator->translateMangoDataToDto($cardRegistration);
+            return $this->cardTranslator->translateMangoCardRegistrationDataToDto($cardRegistration);
         } catch (ResponseException $e) {
             $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
             throw new PartFireException($e->getMessage(), $e->getCode(), $e);
@@ -73,7 +63,7 @@ class CardQuery extends AbstractQuery implements CardQueryInterface
         }
     }
 
-    public function update(string $cardRegisteredId, string $registrationData)
+    public function update(string $cardRegisteredId, string $registrationData): ? CardRegistrationDto
     {
         try {
             $cardRegister = $this->mangoPayApi->CardRegistrations->Get($cardRegisteredId);
@@ -87,7 +77,7 @@ class CardQuery extends AbstractQuery implements CardQueryInterface
                         $this->logger->addCritical("Cannot create card. Payment has not been created.");
                         throw new PartFireException("Cannot create card. Payment has not been created.");
                     }
-                    return $this->cardTranslator->translateMangoDataToDto($updatedCardRegister);
+                    return $this->cardTranslator->translateMangoCardRegistrationDataToDto($updatedCardRegister);
                 }
                 $this->logger->addCritical("Card Registration failed when trying to update via API.");
                 throw new PartFireException("Card Registration failed when trying to update via API.");
