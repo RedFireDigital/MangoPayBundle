@@ -18,64 +18,149 @@ use PartFire\MangoPayBundle\MangoPayConstants;
 
 class UserLegal extends UserBase
 {
-    private $personType = MangoPayConstants::LEAGAL_PERSON_TYPE;
+    private $legalPersonType = MangoPayConstants::LEGAL_PERSON_TYPE_BUSINESS;
 
-    private $firstName;
+    private $name;
 
-    private $lastName;
+    private $headquartersAddress;
+
+    private $legalRepresentativeFirstName;
+
+    private $legalRepresentativeLastName;
+
+    private $legalRepresentativeAddress;
+
+    private $legalRepresentativeEmail;
 
     private $legalRepresentativeBirthday;
 
-    private $nationality;
+    private $legalRepresentativeNationality;
 
-    private $countryOfResidence;
+    private $legalRepresentativeCountryOfResidence;
+
+    private $proofOfIdentity;
+
+    private $statute;
+
+    private $proofOfRegistration;
+
+    private $shareholderDeclaration;
+
+    public function __construct()
+    {
+        $this->setPersonType(MangoPayConstants::LEGAL_PERSON_TYPE);
+    }
 
     /**
      * @return string
      */
-    public function getPersonType(): string
+    public function getLegalPersonType(): string
     {
-        return $this->personType;
+        return $this->legalPersonType;
     }
 
     /**
-     * @param string $personType
+     * @param string $legalPersonType
      */
-    public function setPersonType(string $personType)
+    public function setLegalPersonType(string $legalPersonType)
     {
-        $this->personType = $personType;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * @param mixed $firstName
-     */
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
+        $this->legalPersonType = $legalPersonType;
     }
 
     /**
      * @return mixed
      */
-    public function getLastName()
+    public function getName()
     {
-        return $this->lastName;
+        return $this->name;
     }
 
     /**
-     * @param mixed $lastName
+     * @param mixed $name
      */
-    public function setLastName($lastName)
+    public function setName($name)
     {
-        $this->lastName = $lastName;
+        $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHeadquartersAddress()
+    {
+        return $this->headquartersAddress;
+    }
+
+    /**
+     * @param mixed $headquartersAddress
+     */
+    public function setHeadquartersAddress($headquartersAddress)
+    {
+        $this->headquartersAddress = $headquartersAddress;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLegalRepresentativeFirstName()
+    {
+        return $this->legalRepresentativeFirstName;
+    }
+
+    /**
+     * @param mixed $legalRepresentativeFirstName
+     */
+    public function setLegalRepresentativeFirstName($legalRepresentativeFirstName)
+    {
+        $this->legalRepresentativeFirstName = $legalRepresentativeFirstName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLegalRepresentativeLastName()
+    {
+        return $this->legalRepresentativeLastName;
+    }
+
+    /**
+     * @param mixed $legalRepresentativeLastName
+     */
+    public function setLegalRepresentativeLastName($legalRepresentativeLastName)
+    {
+        $this->legalRepresentativeLastName = $legalRepresentativeLastName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLegalRepresentativeAddress()
+    {
+        return $this->legalRepresentativeAddress;
+    }
+
+    /**
+     * @param mixed $legalRepresentativeAddress
+     */
+    public function setLegalRepresentativeAddress($legalRepresentativeAddress)
+    {
+        $this->legalRepresentativeAddress = $legalRepresentativeAddress;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLegalRepresentativeEmail()
+    {
+        return $this->legalRepresentativeEmail;
+    }
+
+    /**
+     * @param mixed $legalRepresentativeEmail
+     */
+    public function setLegalRepresentativeEmail($legalRepresentativeEmail)
+    {
+        $this->legalRepresentativeEmail = $legalRepresentativeEmail;
     }
 
     /**
@@ -97,35 +182,98 @@ class UserLegal extends UserBase
     /**
      * @return mixed
      */
-    public function getNationality()
+    public function getLegalRepresentativeNationality()
     {
-        return $this->nationality;
+        return $this->legalRepresentativeNationality;
     }
 
     /**
-     * @param mixed $nationality
+     * @param mixed $legalRepresentativeNationality
      */
-    public function setNationality($nationality)
+    public function setLegalRepresentativeNationality($legalRepresentativeNationality)
     {
-        $this->nationality = $nationality;
+        $this->legalRepresentativeNationality = $legalRepresentativeNationality;
     }
 
     /**
      * @return mixed
      */
-    public function getCountryOfResidence()
+    public function getLegalRepresentativeCountryOfResidence()
     {
-        return $this->countryOfResidence;
+        return $this->legalRepresentativeCountryOfResidence;
     }
 
     /**
-     * @param mixed $countryOfResidence
+     * @param mixed $legalRepresentativeCountryOfResidence
      */
-    public function setCountryOfResidence($countryOfResidence)
+    public function setLegalRepresentativeCountryOfResidence($legalRepresentativeCountryOfResidence)
     {
-        $this->countryOfResidence = $countryOfResidence;
+        $this->legalRepresentativeCountryOfResidence = $legalRepresentativeCountryOfResidence;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getProofOfIdentity()
+    {
+        return $this->proofOfIdentity;
+    }
+
+    /**
+     * @param mixed $proofOfIdentity
+     */
+    public function setProofOfIdentity($proofOfIdentity)
+    {
+        $this->proofOfIdentity = $proofOfIdentity;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatute()
+    {
+        return $this->statute;
+    }
+
+    /**
+     * @param mixed $statute
+     */
+    public function setStatute($statute)
+    {
+        $this->statute = $statute;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProofOfRegistration()
+    {
+        return $this->proofOfRegistration;
+    }
+
+    /**
+     * @param mixed $proofOfRegistration
+     */
+    public function setProofOfRegistration($proofOfRegistration)
+    {
+        $this->proofOfRegistration = $proofOfRegistration;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShareholderDeclaration()
+    {
+        return $this->shareholderDeclaration;
+    }
+
+    /**
+     * @param mixed $shareholderDeclaration
+     */
+    public function setShareholderDeclaration($shareholderDeclaration)
+    {
+        $this->shareholderDeclaration = $shareholderDeclaration;
+    }
 
 
 }

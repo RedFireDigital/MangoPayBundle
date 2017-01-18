@@ -15,6 +15,8 @@
 namespace PartFire\MangoPayBundle\Models\DTOs;
 
 
+use PartFire\MangoPayBundle\MangoPayConstants;
+
 class UserBase
 {
     private $personType;
@@ -35,7 +37,7 @@ class UserBase
     /**
      * @param mixed $personType
      */
-    public function setPersonType($personType)
+    public function setPersonType(string $personType)
     {
         $this->personType = $personType;
     }
@@ -130,8 +132,19 @@ class UserBase
                 $value = $key->format('U');
             }
 
-            if ($key == 'Address') {
-                $value = $this->getAddressDTO($value);
+            if ($this->getPersonType() == MangoPayConstants::NATURAL_PERSON_TYPE) {
+                if ($key == 'Address') {
+                    $value = $this->getAddressDTO($value);
+                }
+            } elseif ($this->getPersonType() == MangoPayConstants::LEGAL_PERSON_TYPE) {
+                if ($key == 'HeadquartersAddress' || $key == 'LegalRepresentativeAddress') {
+                    $value = $this->getAddressDTO($value);
+                }
+            } else {
+                throw new \Exception(
+                    "Person type was set to " . $this->getPersonType() . ". 
+                    Can only be " . MangoPayConstants::NATURAL_PERSON_TYPE . " or 
+                    " . MangoPayConstants::LEGAL_PERSON_TYPE);
             }
 
             $this->$methodName($value);
