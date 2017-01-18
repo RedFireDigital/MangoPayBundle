@@ -4,6 +4,7 @@ parameters:
     part_fire_mango_pay.dto.kyc_document_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\KycDocumentTranslator'
     part_fire_mango_pay.dto.kyc_document_page_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\KycDocumentPageTranslator'
     part_fire_mango_pay.dto.transfer_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\TransferTranslator'
+    part_fire_mango_pay.dto.card_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\CardTranslator'
 
 services:
     part_fire_mango_pay.vendor_mango_api:
@@ -23,6 +24,9 @@ services:
 
     part_fire_mango_pay.models_dtos_translators.transfer_translator:
         class: '%part_fire_mango_pay.dto.transfer_translator.class%'
+
+    part_fire_mango_pay.models_dtos_translators.card_translator:
+        class: '%art_fire_mango_pay.dto.card_translator.class%'
 
     part_fire_mango_pay.models_adapters.user_query:
         class: PartFire\MangoPayBundle\Models\Adapters\UserQuery
@@ -83,6 +87,16 @@ services:
             - '@part_fire_mango_pay.vendor_mango_api'
             - '@logger'
 
+    part_fire_mango_pay.models_adapters.card_query:
+        class: PartFire\MangoPayBundle\Models\Adapters\CardQuery
+        arguments:
+            - '%mangopay_client_id%'
+            - '%mangopay_client_password%'
+            - '%mangopay_base_url%'
+            - '@part_fire_mango_pay.vendor_mango_api'
+            - '@logger'
+            - '@part_fire_mango_pay.models_dtos_translators.card_translator'
+
     part_fire_mango_pay.services.user:
         class: PartFire\MangoPayBundle\Services\User
         arguments: ['@part_fire_mango_pay.models_adapters.user_query']
@@ -90,6 +104,10 @@ services:
     part_fire_mango_pay.services.wallet:
         class: PartFire\MangoPayBundle\Services\Wallet
         arguments: ['@part_fire_mango_pay.models_adapters.wallet_query']
+
+    part_fire_mango_pay.services.card:
+        class: PartFire\MangoPayBundle\Services\Card
+        arguments: ['@part_fire_mango_pay.models_adapters.card_query']
 
     part_fire_mango_pay.services.hook:
         class: PartFire\MangoPayBundle\Services\Hook
