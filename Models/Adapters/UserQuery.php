@@ -69,7 +69,18 @@ class UserQuery extends AbstractQuery implements UserQueryInterface
 
     public function createLegal(PFUserLegal $userDto)
     {
-        // TODO: Implement createLegal() method.
+        $mangoUser = $this->userTranslator->convertDTOToMangoPayLegalUser($userDto);
+        var_dump($mangoUser);
+        try {
+            $mangoUser = $this->mangoPayApi->Users->Create($mangoUser);
+        } catch (ResponseException $e) {
+            $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
+            throw new PartFireException($e->getMessage() . " - " . $e->GetErrorDetails(), $e->getCode(), $e);
+        } catch (Exception $e) {
+            $this->logger->addError($e->getMessage());
+            throw new PartFireException($e->getMessage() . " - " . $e->GetErrorDetails(), $e->getCode(), $e);
+        }
+        return $this->userTranslator->convertMangoPayLegalUserToDTO($mangoUser);
     }
 
     public function get($userId)

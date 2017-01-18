@@ -65,12 +65,22 @@ class UserTranslator
     public function convertDTOToMangoPayLegalUser(PFUserLegal $userDto)
     {
         $mangoUser = new UserLegal();
-        $mangoUser->PersonType = MangoPayConstants::LEAGAL_PERSON_TYPE;
-        $mangoUser->Name = $userDto->getFirstName() . " " . $userDto->getLastName();
-        $mangoUser->LastName = $userDto->getLastName();
-        $mangoUser->Birthday = (int) $userDto->getLegalRepresentativeBirthday();
-        $mangoUser->Nationality = $userDto->getNationality();
-        $mangoUser->CountryOfResidence = $userDto->getCountryOfResidence();
+        $mangoUser->PersonType                      = MangoPayConstants::LEGAL_PERSON_TYPE;
+        $mangoUser->LegalPersonType                 = $userDto->getLegalPersonType();
+        $mangoUser->Name                            = $userDto->getName();
+        $mangoUser->HeadquartersAddress             = $this->getConvertDTOToMangoPayAddress(
+            $userDto->getHeadquartersAddress()
+        );
+        $mangoUser->LegalRepresentativeFirstName    = $userDto->getLegalRepresentativeFirstName();
+        $mangoUser->LegalRepresentativeLastName     = $userDto->getLegalRepresentativeLastName();
+        $mangoUser->LegalRepresentativeAddress      = $this->getConvertDTOToMangoPayAddress(
+            $userDto->getLegalRepresentativeAddress()
+        );
+        $mangoUser->LegalRepresentativeEmail        = $userDto->getLegalRepresentativeEmail();
+        $mangoUser->LegalRepresentativeBirthday     = (int) $userDto->getLegalRepresentativeBirthday();
+        $mangoUser->LegalRepresentativeNationality  = $userDto->getLegalRepresentativeNationality();
+        $mangoUser->LegalRepresentativeCountryOfResidence = $userDto->getLegalRepresentativeCountryOfResidence();
+
         $mangoUser->Email = $userDto->getEmail();
         $mangoUser->Tag = $userDto->getTag();
         if ($userDto->getId()) {
@@ -79,16 +89,19 @@ class UserTranslator
         return $mangoUser;
     }
 
-    public function convertMangoPayLegalUserToDTO(UserNatural $mangoUser)
+    public function convertMangoPayLegalUserToDTO(UserLegal $mangoUser)
     {
         $userDto = new PFUserLegal();
-        $userDto->setPersonType($mangoUser->PersonType);
-        $userDto->setFirstName($mangoUser->FirstName);
-        $userDto->setLastName($mangoUser->LastName);
-        $userDto->setLegalRepresentativeBirthday($mangoUser->Birthday);
-        $userDto->setNationality($mangoUser->Nationality);
-        $userDto->setCountryOfResidence($mangoUser->CountryOfResidence);
-        $userDto->setEmail($mangoUser->Email);
+        $userDto->setLegalPersonType($mangoUser->LegalPersonType);
+        $userDto->setName($mangoUser->Name);
+        $userDto->setHeadquartersAddress($this->getConvertMangoAddressToDTO($mangoUser->HeadquartersAddress));
+        $userDto->setLegalRepresentativeFirstName($mangoUser->LegalRepresentativeFirstName);
+        $userDto->setLegalRepresentativeLastName($mangoUser->LegalRepresentativeLastName);
+        $userDto->setLegalRepresentativeAddress($this->getConvertMangoAddressToDTO($mangoUser->LegalRepresentativeAddress));
+        $userDto->setLegalRepresentativeEmail($mangoUser->LegalRepresentativeEmail);
+        $userDto->setLegalRepresentativeBirthday($mangoUser->LegalRepresentativeBirthday);
+        $userDto->setLegalRepresentativeNationality($mangoUser->LegalRepresentativeNationality);
+        $userDto->setLegalRepresentativeCountryOfResidence($mangoUser->LegalRepresentativeCountryOfResidence);
         $userDto->setId($mangoUser->Id);
         $userDto->setKYCLevel($mangoUser->KYCLevel);
         return $userDto;
