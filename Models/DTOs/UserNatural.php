@@ -34,8 +34,12 @@ class UserNatural extends UserBase
 
     private $address;
 
+    public function __construct()
+    {
+        $this->setPersonType(MangoPayConstants::NATURAL_PERSON_TYPE);
+    }
 
-    /**
+        /**
      * @return mixed
      */
     public function getFirstName()
