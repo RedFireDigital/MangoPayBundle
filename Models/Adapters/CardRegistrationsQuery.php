@@ -93,4 +93,22 @@ class CardRegistrationsQuery extends AbstractQuery implements CardRegistrationsQ
             throw new PartFireException($e->getMessage(), $e->getCode(), $e);
         }
     }
+
+    public function get(string $cardRegisteredId): ? CardRegistrationDto
+    {
+        try {
+            $cardRegister = $this->mangoPayApi->CardRegistrations->Get($cardRegisteredId);
+            if ($cardRegister instanceof CardRegistration) {
+                return $this->cardTranslator->translateMangoCardRegistrationDataToDto($cardRegister);
+            }
+            $this->logger->addCritical("Card Registration ID: $cardRegisteredId not found when querying API.");
+            throw new PartFireException("Card Registration ID: $cardRegisteredId not found when querying API.");
+        } catch (ResponseException $e) {
+            $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
+            throw new PartFireException($e->getMessage(), $e->getCode(), $e);
+        } catch (Exception $e) {
+            $this->logger->addError($e->getMessage());
+            throw new PartFireException($e->getMessage(), $e->getCode(), $e);
+        }
+    }
 }

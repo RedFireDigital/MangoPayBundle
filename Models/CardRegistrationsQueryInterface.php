@@ -19,4 +19,6 @@ interface CardRegistrationsQueryInterface
     public function create(string $userId, string $currency, string $cardType, string $tag): ? CardRegistrationDto;
 
     public function update(string $cardRegisteredId, string $registrationData): ? CardRegistrationDto;
+
+    public function get(string $cardRegisteredId): ? CardRegistrationDto;
 }

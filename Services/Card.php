@@ -12,6 +12,7 @@
 
 namespace PartFire\MangoPayBundle\Services;
 
+use PartFire\MangoPayBundle\Models\CardQueryInterface;
 use PartFire\MangoPayBundle\Models\CardRegistrationsQueryInterface;
 
 class Card
@@ -19,10 +20,15 @@ class Card
     /**
      * @var CardRegistrationsQueryInterface
      */
+    private $cardRegistrationQuery;
+    /**
+     * @var CardQueryInterface
+     */
     private $cardQuery;
 
-    public function __construct(CardRegistrationsQueryInterface $cardQuery)
+    public function __construct(CardRegistrationsQueryInterface $cardRegistrationsQuery, CardQueryInterface $cardQuery)
     {
+        $this->cardRegistrationQuery = $cardRegistrationsQuery;
         $this->cardQuery = $cardQuery;
     }
 
@@ -31,25 +37,49 @@ class Card
      * @param string $currency
      * @param string $cardType
      * @param string $tag
-     * @return null|\PartFire\MangoPayBundle\Models\DTOs\Card
+     * @return null|\PartFire\MangoPayBundle\Models\DTOs\CardRegistration
      * Create a card registration
      */
-    public function create(string $userId, string $currency, string $cardType, string $tag)
+    public function createRegistration(string $userId, string $currency, string $cardType, string $tag)
     {
-        return $this->cardQuery->create($userId, $currency, $cardType, $tag);
+        return $this->cardRegistrationQuery->create($userId, $currency, $cardType, $tag);
     }
 
     /**
      * @param $cardRegisteredId
      * update cardRegister after payment form
      * @param $registrationData
+     * @return null|\PartFire\MangoPayBundle\Models\DTOs\CardRegistration
      */
-    public function update(string $cardRegisteredId, string $registrationData)
+    public function updateRegistration(string $cardRegisteredId, string $registrationData)
     {
+        return $this->cardRegistrationQuery->update($cardRegisteredId, $registrationData);
+    }
 
+    /**
+     * @param string $cardRegisteredId
+     * @return null|\PartFire\MangoPayBundle\Models\DTOs\CardRegistration
+     */
+    public function getRegistration(string $cardRegisteredId)
+    {
+        return $this->cardRegistrationQuery->get($cardRegisteredId);
+    }
 
-        return $this->cardQuery->update($cardRegisteredId, $registrationData);
+    /**
+     * @param $cardId
+     * @return null|\PartFire\MangoPayBundle\Models\DTOs\Card
+     */
+    public function get($cardId)
+    {
+        return $this->cardQuery->get($cardId);
+    }
 
-
+    /**
+     * @param $cardId
+     * @return null|\PartFire\MangoPayBundle\Models\DTOs\Card
+     */
+    public function deactivate($cardId)
+    {
+        return $this->cardQuery->deactivate($cardId);
     }
 }
