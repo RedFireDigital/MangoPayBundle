@@ -43,7 +43,7 @@ class CardRegistrationsQuery extends AbstractQuery implements CardRegistrationsQ
         $this->cardTranslator = $cardTranslator;
     }
 
-    public function create(string $userId, string $currency, string $cardType, string $tag): ? CardRegistrationDto
+    public function create(string $userId, string $currency, string $cardType, string $tag): CardRegistrationDto
     {
         try {
             $CardRegistration = new CardRegistration();
@@ -63,7 +63,7 @@ class CardRegistrationsQuery extends AbstractQuery implements CardRegistrationsQ
         }
     }
 
-    public function update(string $cardRegisteredId, string $registrationData): ? CardRegistrationDto
+    public function update(string $cardRegisteredId, string $registrationData): CardRegistrationDto
     {
         try {
             $cardRegister = $this->mangoPayApi->CardRegistrations->Get($cardRegisteredId);
@@ -94,7 +94,7 @@ class CardRegistrationsQuery extends AbstractQuery implements CardRegistrationsQ
         }
     }
 
-    public function get(string $cardRegisteredId): ? CardRegistrationDto
+    public function get(string $cardRegisteredId): CardRegistrationDto
     {
         try {
             $cardRegister = $this->mangoPayApi->CardRegistrations->Get($cardRegisteredId);

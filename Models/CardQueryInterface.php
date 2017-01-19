@@ -16,7 +16,7 @@ use PartFire\MangoPayBundle\Models\DTOs\Card;
 
 interface CardQueryInterface
 {
-    public function get(string $cardId): ? Card;
+    public function get(string $cardId): Card;
 
-    public function deactivate(string $cardId): ? Card;
+    public function deactivate(string $cardId): Card;
 }

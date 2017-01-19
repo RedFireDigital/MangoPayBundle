@@ -16,9 +16,9 @@ use PartFire\MangoPayBundle\Models\DTOs\CardRegistration as CardRegistrationDto;
 
 interface CardRegistrationsQueryInterface
 {
-    public function create(string $userId, string $currency, string $cardType, string $tag): ? CardRegistrationDto;
+    public function create(string $userId, string $currency, string $cardType, string $tag): CardRegistrationDto;
 
-    public function update(string $cardRegisteredId, string $registrationData): ? CardRegistrationDto;
+    public function update(string $cardRegisteredId, string $registrationData): CardRegistrationDto;
 
-    public function get(string $cardRegisteredId): ? CardRegistrationDto;
+    public function get(string $cardRegisteredId): CardRegistrationDto;
 }

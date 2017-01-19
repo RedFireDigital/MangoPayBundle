@@ -55,7 +55,7 @@ class CardQuery extends AbstractQuery implements CardQueryInterface
      * @return null|Card
      * @throws PartFireException
      */
-    public function get(string $cardId): ? Card
+    public function get(string $cardId): Card
     {
         try {
             $card = $this->mangoPayApi->Cards->Get($cardId);
@@ -73,7 +73,7 @@ class CardQuery extends AbstractQuery implements CardQueryInterface
         }
     }
 
-    public function deactivate(string $cardId): ? Card
+    public function deactivate(string $cardId): Card
     {
         try {
             $card = $this->mangoPayApi->Cards->Get($cardId);

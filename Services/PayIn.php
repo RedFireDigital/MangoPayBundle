@@ -12,6 +12,7 @@
 
 namespace PartFire\MangoPayBundle\Services;
 
+use PartFire\MangoPayBundle\Models\DTOs\BankwireDirectPayIn;
 use PartFire\MangoPayBundle\Models\DTOs\CardDirectPayIn;
 use PartFire\MangoPayBundle\Models\PayInQueryInterface;
 
@@ -30,5 +31,10 @@ class PayIn
     public function createCardDirectPayIn(CardDirectPayIn $cardDirectPayInDto)
     {
         return $this->payInQuery->createPayInCardDirect($cardDirectPayInDto);
+    }
+
+    public function createBankWireDirectPayIn(BankwireDirectPayIn $bankwireDirectPayIn)
+    {
+        return $this->payInQuery->createBankWireDirectPayIn($bankwireDirectPayIn);
     }
 }
