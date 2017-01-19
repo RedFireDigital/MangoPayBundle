@@ -5,6 +5,7 @@ parameters:
     part_fire_mango_pay.dto.kyc_document_page_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\KycDocumentPageTranslator'
     part_fire_mango_pay.dto.transfer_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\TransferTranslator'
     part_fire_mango_pay.dto.card_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\CardTranslator'
+    part_fire_mango_pay.dto.payin_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\PayInTranslator'
 
 services:
     part_fire_mango_pay.vendor_mango_api:
@@ -27,6 +28,9 @@ services:
 
     part_fire_mango_pay.models_dtos_translators.card_translator:
         class: '%part_fire_mango_pay.dto.card_translator.class%'
+
+    part_fire_mango_pay.models_dtos_translators.payin_translator:
+        class: '%part_fire_mango_pay.dto.payin_translator.class%'
 
     part_fire_mango_pay.models_adapters.user_query:
         class: PartFire\MangoPayBundle\Models\Adapters\UserQuery
@@ -87,7 +91,7 @@ services:
             - '@part_fire_mango_pay.vendor_mango_api'
             - '@logger'
 
-    part_fire_mango_pay.models_adapters.card_query:
+    part_fire_mango_pay.models_adapters.cardregistrations_query:
         class: PartFire\MangoPayBundle\Models\Adapters\CardRegistrationsQuery
         arguments:
             - '%mangopay_client_id%'
@@ -96,6 +100,26 @@ services:
             - '@part_fire_mango_pay.vendor_mango_api'
             - '@logger'
             - '@part_fire_mango_pay.models_dtos_translators.card_translator'
+
+    part_fire_mango_pay.models_adapters.card_query:
+        class: PartFire\MangoPayBundle\Models\Adapters\CardQuery
+        arguments:
+            - '%mangopay_client_id%'
+            - '%mangopay_client_password%'
+            - '%mangopay_base_url%'
+            - '@part_fire_mango_pay.vendor_mango_api'
+            - '@logger'
+            - '@part_fire_mango_pay.models_dtos_translators.card_translator'
+
+    part_fire_mango_pay.models_adapters.payin_query:
+        class: PartFire\MangoPayBundle\Models\Adapters\PayInQuery
+        arguments:
+            - '%mangopay_client_id%'
+            - '%mangopay_client_password%'
+            - '%mangopay_base_url%'
+            - '@part_fire_mango_pay.vendor_mango_api'
+            - '@logger'
+            - '@part_fire_mango_pay.models_dtos_translators.payin_translator'
 
     part_fire_mango_pay.services.user:
         class: PartFire\MangoPayBundle\Services\User
@@ -107,7 +131,13 @@ services:
 
     part_fire_mango_pay.services.card:
         class: PartFire\MangoPayBundle\Services\Card
-        arguments: ['@part_fire_mango_pay.models_adapters.card_query']
+        arguments:
+            - '@part_fire_mango_pay.models_adapters.cardregistrations_query'
+            - '@part_fire_mango_pay.models_adapters.card_query'
+
+    part_fire_mango_pay.services.payin:
+        class: PartFire\MangoPayBundle\Services\PayIn
+        arguments: ['@part_fire_mango_pay.models_adapters.payin_query']
 
     part_fire_mango_pay.services.hook:
         class: PartFire\MangoPayBundle\Services\Hook
