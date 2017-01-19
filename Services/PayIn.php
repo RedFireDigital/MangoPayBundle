@@ -12,13 +12,23 @@
 
 namespace PartFire\MangoPayBundle\Services;
 
-
 use PartFire\MangoPayBundle\Models\DTOs\CardDirectPayIn;
+use PartFire\MangoPayBundle\Models\PayInQueryInterface;
 
 class PayIn
 {
+    /**
+     * @var PayInQueryInterface
+     */
+    private $payInQuery;
+
+    public function __construct(PayInQueryInterface $payInQuery)
+    {
+        $this->payInQuery = $payInQuery;
+    }
+
     public function createCardDirectPayIn(CardDirectPayIn $cardDirectPayInDto)
     {
-
+        return $this->payInQuery->createPayInCardDirect($cardDirectPayInDto);
     }
 }
