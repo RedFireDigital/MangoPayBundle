@@ -42,6 +42,50 @@ class MangoPayConstants
     const       SHAREHOLDER_DECLARATION             = 'SHAREHOLDER_DECLARATION';
     const       ADDRESS_PROOF                       = 'ADDRESS_PROOF';
 
+    // KYC Doc Refusal reasons
+
+    const       DOCUMENT_UNREADABLE                 = 'DOCUMENT_UNREADABLE';
+    const       DOCUMENT_NOT_ACCEPTED               = 'DOCUMENT_NOT_ACCEPTED';
+    const       DOCUMENT_HAS_EXPIRED                = 'DOCUMENT_HAS_EXPIRED';
+    const       DOCUMENT_INCOMPLETE                 = 'DOCUMENT_INCOMPLETE';
+    const       DOCUMENT_MISSING                    = 'DOCUMENT_MISSING';
+    const       DOCUMENT_DO_NOT_MATCH_USER_DATA     = 'DOCUMENT_DO_NOT_MATCH_USER_DATA';
+    const       DOCUMENT_DO_NOT_MATCH_ACCOUNT_DATA  = 'DOCUMENT_DO_NOT_MATCH_ACCOUNT_DATA';
+    const       SPECIFIC_CASE                       = 'SPECIFIC_CASE';
+    const       DOCUMENT_FALSIFIED                  = 'DOCUMENT_FALSIFIED';
+    const       UNDERAGE_PERSON                     = 'UNDERAGE_PERSON';
+    const       OTHER                               = 'OTHER';
+    const       TRIGGER_PEPS                        = 'TRIGGER_PEPS';
+    const       TRIGGER_SANCTIONS_LISTS             = 'TRIGGER_SANCTIONS_LISTS';
+    const       TRIGGER_INTERPOL                    = 'TRIGGER_INTERPOL';
+
+    // KYC Doc Status
+
+    const       CREATED                             = 'CREATED';
+    const       VALIDATION_ASKED                    = 'VALIDATION_ASKED';
+    const       VALIDATED                           = 'VALIDATED';
+    const       REFUSED                             = 'REFUSED';
+
+    public static function getKYCRefusalArray() : array
+    {
+        return [
+            self::DOCUMENT_UNREADABLE,
+            self::DOCUMENT_NOT_ACCEPTED,
+            self::DOCUMENT_HAS_EXPIRED,
+            self::DOCUMENT_INCOMPLETE,
+            self::DOCUMENT_MISSING,
+            self::DOCUMENT_DO_NOT_MATCH_USER_DATA,
+            self::DOCUMENT_DO_NOT_MATCH_ACCOUNT_DATA,
+            self::SPECIFIC_CASE,
+            self::DOCUMENT_FALSIFIED,
+            self::UNDERAGE_PERSON,
+            self::OTHER,
+            self::TRIGGER_PEPS,
+            self::TRIGGER_SANCTIONS_LISTS,
+            self::TRIGGER_INTERPOL
+        ];
+    }
+
     public static function getIncomeRangeFromId(int $id) : string
     {
         switch ($id) {
