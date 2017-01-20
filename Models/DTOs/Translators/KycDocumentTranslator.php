@@ -20,6 +20,7 @@ class KycDocumentTranslator
     public function convertDTOToMangoKycDocument(KycDocumentDto $kycDocumentDto)
     {
         $mangoKycDocument = new KycDocument();
+        $mangoKycDocument->Id = $kycDocumentDto->getDocumentId();
         $mangoKycDocument->Tag = $kycDocumentDto->getTag();
         $mangoKycDocument->Type = $kycDocumentDto->getType();
         $mangoKycDocument->UserId = $kycDocumentDto->getOwnerId();
