@@ -12,16 +12,28 @@
 
 namespace PartFire\MangoPayBundle\Services;
 
+use PartFire\MangoPayBundle\Models\DTOs\PayOutBankWire;
+use PartFire\MangoPayBundle\Models\PayOutQueryInterface;
 
 class PayOut
 {
-    public function create()
-    {
+    /**
+     * @var PayOutQueryInterface
+     */
+    private $payOutQuery;
 
+    public function __construct(PayOutQueryInterface $payOutQuery)
+    {
+        $this->payOutQuery = $payOutQuery;
     }
 
-    public function get()
+    public function create(PayOutBankWire $payOutBankWire) : PayOutBankWire
     {
+        return $this->payOutQuery->createBankWire($payOutBankWire);
+    }
 
+    public function get($payOutId) : PayOutBankWire
+    {
+        return $this->payOutQuery->getBankWire($payOutId);
     }
 }

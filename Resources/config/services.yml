@@ -7,6 +7,7 @@ parameters:
     part_fire_mango_pay.dto.card_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\CardTranslator'
     part_fire_mango_pay.dto.payin_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\PayInTranslator'
     part_fire_mango_pay.dto.bankaccount_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\BankAccountTranslator'
+    part_fire_mango_pay.dto.payout_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\PayOutTranslator'
 
 services:
     part_fire_mango_pay.vendor_mango_api:
@@ -35,6 +36,9 @@ services:
 
     part_fire_mango_pay.models_dtos_translators.bankaccount_translator:
         class: '%part_fire_mango_pay.dto.bankaccount_translator.class%'
+
+    part_fire_mango_pay.models_dtos_translators.payout_translator:
+        class: '%part_fire_mango_pay.dto.payout_translator.class%'
 
     part_fire_mango_pay.models_adapters.user_query:
         class: PartFire\MangoPayBundle\Models\Adapters\UserQuery
@@ -135,6 +139,16 @@ services:
                 - '@logger'
                 - '@part_fire_mango_pay.models_dtos_translators.bankaccount_translator'
 
+    part_fire_mango_pay.models_adapters.payout_query:
+            class: PartFire\MangoPayBundle\Models\Adapters\PayOutQuery
+            arguments:
+                - '%mangopay_client_id%'
+                - '%mangopay_client_password%'
+                - '%mangopay_base_url%'
+                - '@part_fire_mango_pay.vendor_mango_api'
+                - '@logger'
+                - '@part_fire_mango_pay.models_dtos_translators.payout_translator'
+
     part_fire_mango_pay.services.user:
         class: PartFire\MangoPayBundle\Services\User
         arguments: ['@part_fire_mango_pay.models_adapters.user_query']
@@ -170,3 +184,7 @@ services:
     part_fire_mango_pay.services.bank_account:
         class: PartFire\MangoPayBundle\Services\BankAccounts
         arguments: ['@part_fire_mango_pay.models_adapters.bankaccount_query']
+
+    part_fire_mango_pay.services.payout:
+        class: PartFire\MangoPayBundle\Services\PayOut
+        arguments: ['@part_fire_mango_pay.models_adapters.payout_query']
