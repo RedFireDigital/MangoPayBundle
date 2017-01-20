@@ -45,13 +45,13 @@ class TransferQuery extends AbstractQuery implements TransferQueryInterface
         Logger $logger,
         TransferTranslator $transferTranslator
     ) {
-        parent::__construct($clientId, $clientPassword, $baseUrl,$mangoPayApi, $logger);
+        parent::__construct($clientId, $clientPassword, $baseUrl, $mangoPayApi, $logger);
         $this->transferTranslator = $transferTranslator;
     }
 
     /**
      * @param Transfer $transferDto
-     * @return User|PartFireException
+     * @return Transfer|PartFireException
      */
     public function create(Transfer $transferDto)
     {

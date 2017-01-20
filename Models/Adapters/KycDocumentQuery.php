@@ -34,7 +34,7 @@ class KycDocumentQuery extends AbstractQuery implements KycDocumentQueryInterfac
         KycDocumentTranslator $kycDocumentTranslator
     ) {
         $this->kycDocumentTranslator = $kycDocumentTranslator;
-        parent::__construct($clientId, $clientPassword, $baseUrl,$mangoPayApi, $logger);
+        parent::__construct($clientId, $clientPassword, $baseUrl, $mangoPayApi, $logger);
     }
 
     public function create(KycDocument $kycDocumentDto, $shouldSubmit = false)
@@ -47,10 +47,10 @@ class KycDocumentQuery extends AbstractQuery implements KycDocumentQueryInterfac
             }
             $mangoKycDocument = $this->mangoPayApi->Users->CreateKycDocument($UserId, $mangoKycDocument);
 
-        } catch(ResponseException $e) {
+        } catch (ResponseException $e) {
             $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
             return new PartFireException($e->getMessage(), $e->getCode());
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             $this->logger->addError($e->getMessage());
             return new PartFireException($e->getMessage(), $e->getCode());
         }
@@ -62,14 +62,14 @@ class KycDocumentQuery extends AbstractQuery implements KycDocumentQueryInterfac
         return $this->create($kycDocumentDto, true);
     }
 
-    public function get(int $kycDocumentId)
+    public function get(string $userId, string $kycDocumentId)
     {
         try {
-            $mangoKycDocument = $this->mangoPayApi->Users->GetKycDocument($kycDocumentId);
-        } catch(ResponseException $e) {
+            $mangoKycDocument = $this->mangoPayApi->Users->GetKycDocument($userId, $kycDocumentId);
+        } catch (ResponseException $e) {
             $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
             return new PartFireException($e->getMessage(), $e->getCode());
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             $this->logger->addError($e->getMessage());
             return new PartFireException($e->getMessage(), $e->getCode());
         }

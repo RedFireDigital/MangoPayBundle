@@ -32,6 +32,12 @@ class Transfer
 
     protected $creditedWalledId;
 
+    protected $status;
+
+    protected $resultCode;
+
+    protected $resultMessage;
+
     /**
      * @return mixed
      */
@@ -174,5 +180,53 @@ class Transfer
     public function setCreditedWalledId($creditedWalledId)
     {
         $this->creditedWalledId = $creditedWalledId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResultCode()
+    {
+        return $this->resultCode;
+    }
+
+    /**
+     * @param mixed $resultCode
+     */
+    public function setResultCode($resultCode)
+    {
+        $this->resultCode = $resultCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResultMessage()
+    {
+        return $this->resultMessage;
+    }
+
+    /**
+     * @param mixed $resultMessage
+     */
+    public function setResultMessage($resultMessage)
+    {
+        $this->resultMessage = $resultMessage;
     }
 }
