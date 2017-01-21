@@ -68,6 +68,7 @@ class MangoPayConstants
 
     // Hook Status
     const       HOOK_NEW                            = "HOOK_NEW";
+    const       HOOK_IN_PROGRESS                    = "HOOK_IN_PROGRESS";
     const       HOOK_ACTIONED                       = "HOOK_ACTIONED";
 
     public static function getKYCRefusalArray() : array

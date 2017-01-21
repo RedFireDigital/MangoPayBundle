@@ -7,7 +7,7 @@
  * User:    gra
  * Date:    20/01/17
  * Time:    09:52
- * Project: fruitful-property-investments
+ * Project: PartFire MangoPay Bundle
  * File:    HookHandleService.php
  *
  **/
@@ -88,15 +88,34 @@ class HookHandleService
 
     private function processWebhook(Hook $hook, CommonOutputInterface $commonOutput)
     {
+        $hook = $this->setWebhookInProgress($hook);
         if (MangoPayConstants::isEventTypeOk($hook->getHookEventType())) {
-            $webhookEvent = new MangoPayWebhookEvent();
-            $webhookEvent->setOutput($commonOutput);
+
         } else {
             $this->sendErrorMessage(
-                "Received webhook from MangoPay *" . $hook->getHookEventType() ."* and unsure what to do with it \n ```" . json_encode($hook->getRawHookData()) . "```",
+                "Received webhook from MangoPay *" . $hook->getHookEventType() ."*, which is unknown. Firing event anyway \n ```" . json_encode($hook->getRawHookData()) . "```",
                 ':anguished:'
             );
         }
+
+        $webhookEvent = new MangoPayWebhookEvent();
+        $webhookEvent->setOutput($commonOutput);
+        $webhookEvent->setHook($hook);
+
+        $this->event->dispatch(MangoPayWebhookEvent::NAME, $webhookEvent);
+        $this->setWebhookToActioned($hook);
+    }
+
+    private function setWebhookInProgress(Hook $hook) : Hook
+    {
+        $hook->setStatus(MangoPayConstants::HOOK_IN_PROGRESS);
+        return $this->mangoPayRepositoryFactory->saveAndGetEntity($hook);
+    }
+
+    private function setWebhookToActioned(Hook $hook)
+    {
+        $hook->setStatus(MangoPayConstants::HOOK_ACTIONED);
+        $this->mangoPayRepositoryFactory->saveAndGetEntity($hook);
     }
 
     private function getIdentityCheckReportByOnfidoReportId(OnfidoHookQueue $onfidoHookQueue) : ?IdentityCheckReport

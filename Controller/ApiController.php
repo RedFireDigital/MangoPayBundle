@@ -7,7 +7,7 @@
  * User:    gra
  * Date:    20/01/17
  * Time:    09:12
- * Project: fruitful-property-investments
+ * Project: PartFire MangoPay Bundle
  * File:    ApiController.php
  *
  **/
