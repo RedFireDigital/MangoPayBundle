@@ -49,6 +49,9 @@ class TransferTranslator
         $transfer->setCreditedUserId($mangoPayTransfer->CreditedUserId);
         $transfer->setDebitedWalledId($mangoPayTransfer->DebitedWalletId);
         $transfer->setCreditedWalledId($mangoPayTransfer->CreditedWalletId);
+        $transfer->setStatus($mangoPayTransfer->Status);
+        $transfer->setResultCode($mangoPayTransfer->ResultCode);
+        $transfer->setResultMessage($mangoPayTransfer->ResultMessage);
 
         if (isset($mangoPayTransfer->Fees->Currency))
             $transfer->setFeeCurrency($mangoPayTransfer->Fees->Currency);

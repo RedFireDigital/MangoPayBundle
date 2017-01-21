@@ -52,6 +52,6 @@ class Kyc
 
     public function getDocument(int $kycDocumentId)
     {
-        return $this->kycDocumentPageQuery->get($kycDocument);
+        return $this->kycDocumentPageQuery->get($kycDocumentId);
     }
 }
