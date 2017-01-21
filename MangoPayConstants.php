@@ -66,6 +66,10 @@ class MangoPayConstants
     const       VALIDATED                           = 'VALIDATED';
     const       REFUSED                             = 'REFUSED';
 
+    // Hook Status
+    const       HOOK_NEW                            = "HOOK_NEW";
+    const       HOOK_ACTIONED                       = "HOOK_ACTIONED";
+
     public static function getKYCRefusalArray() : array
     {
         return [
@@ -145,6 +149,11 @@ class MangoPayConstants
 
     //  https://docs.mangopay.com/endpoints/v2.01/hooks#e246_the-hook-object
     // 16th Jan 2017
+
+    public static function isEventTypeOk($eventType)
+    {
+        return in_array($eventType, self::getAllEventTypes());
+    }
 
     public static function getAllEventTypes()
     {

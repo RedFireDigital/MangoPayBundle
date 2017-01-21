@@ -8,6 +8,10 @@ parameters:
     part_fire_mango_pay.dto.payin_translator.class: 'PartFire\MangoPayBundle\Models\DTOs\Translators\PayInTranslator'
 
 services:
+    part_fire_mango_pay.factory_repo:
+        class: PartFire\MangoPayBundle\Entity\Repository\MangoPayRepositoryFactory
+        arguments: ['@doctrine.orm.default_entity_manager']
+
     part_fire_mango_pay.vendor_mango_api:
         class: MangoPay\MangoPayApi
 
@@ -152,3 +156,7 @@ services:
     part_fire_mango_pay.services.transfer:
         class: PartFire\MangoPayBundle\Services\Transfer
         arguments: ['@part_fire_mango_pay.models_adapters.transfer_query']
+
+    part_fire_mango_pay.services.webhook:
+        class: PartFire\MangoPayBundle\Services\HookHandleService
+        arguments: ['@part_fire_mango_pay.factory_repo', '@part_fire_slack_service', '@event_dispatcher']
