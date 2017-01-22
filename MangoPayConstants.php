@@ -77,6 +77,67 @@ class MangoPayConstants
     const       HOOK_RESOURCE_ID                    = "RessourceId";  // Known spelling mistake in MangoPay Api
     const       HOOK_DATE                           = "Date";
 
+    // Event types
+
+    const PAYIN_NORMAL_CREATED                      = "PAYIN_NORMAL_CREATED";
+    const PAYIN_NORMAL_SUCCEEDED                    = "PAYIN_NORMAL_SUCCEEDED";
+    const PAYIN_NORMAL_FAILED                       = "PAYIN_NORMAL_FAILED";
+
+    const PAYOUT_NORMAL_CREATED                     = "PAYOUT_NORMAL_CREATED";
+    const PAYOUT_NORMAL_SUCCEEDED                   = "PAYOUT_NORMAL_SUCCEEDED";
+    const PAYOUT_NORMAL_FAILED                      = "PAYOUT_NORMAL_FAILED";
+
+    const TRANSFER_NORMAL_CREATED                   = "TRANSFER_NORMAL_CREATED";
+    const TRANSFER_NORMAL_SUCCEEDED                 = "TRANSFER_NORMAL_SUCCEEDED";
+    const TRANSFER_NORMAL_FAILED                    = "TRANSFER_NORMAL_FAILED";
+
+    const PAYIN_REFUND_CREATED                      = "PAYIN_REFUND_CREATED";
+    const PAYIN_REFUND_SUCCEEDED                    = "PAYIN_REFUND_SUCCEEDED";
+    const PAYIN_REFUND_FAILED                       = "PAYIN_REFUND_FAILED";
+
+    const PAYOUT_REFUND_CREATED                     = "PAYOUT_REFUND_CREATED";
+    const PAYOUT_REFUND_SUCCEEDED                   = "PAYOUT_REFUND_SUCCEEDED";
+    const PAYOUT_REFUND_FAILED                      = "PAYOUT_REFUND_FAILED";
+
+    const TRANSFER_REFUND_CREATED                   = "TRANSFER_REFUND_CREATED";
+    const TRANSFER_REFUND_SUCCEEDED                 = "TRANSFER_REFUND_SUCCEEDED";
+    const TRANSFER_REFUND_FAILED                    = "TRANSFER_REFUND_FAILED";
+
+    const PAYIN_REPUDIATION_CREATED                 = "PAYIN_REPUDIATION_CREATED";
+    const PAYIN_REPUDIATION_SUCCEEDED               = "PAYIN_REPUDIATION_SUCCEEDED";
+    const PAYIN_REPUDIATION_FAILED                  = "PAYIN_REPUDIATION_FAILED";
+
+    const KYC_CREATED                               = "KYC_CREATED";
+    const KYC_SUCCEEDED                             = "KYC_SUCCEEDED";
+    const KYC_FAILED                                = "KYC_FAILED";
+    const KYC_VALIDATION_ASKED                      = "KYC_VALIDATION_ASKED";
+
+    const DISPUTE_DOCUMENT_CREATED                  = "DISPUTE_DOCUMENT_CREATED";
+    const DISPUTE_DOCUMENT_VALIDATION_ASKED         = "DISPUTE_DOCUMENT_VALIDATION_ASKED";
+    const DISPUTE_DOCUMENT_SUCCEEDED                = "DISPUTE_DOCUMENT_SUCCEEDED";
+    const DISPUTE_DOCUMENT_FAILED                   = "DISPUTE_DOCUMENT_FAILED";
+
+    const DISPUTE_CREATED                           = "DISPUTE_CREATED";
+    const DISPUTE_SUBMITTED                         = "DISPUTE_SUBMITTED";
+    const DISPUTE_ACTION_REQUIRED                   = "DISPUTE_ACTION_REQUIRED";
+    const DISPUTE_FURTHER_ACTION_REQUIRED           = "DISPUTE_FURTHER_ACTION_REQUIRED";
+    const DISPUTE_CLOSED                            = "DISPUTE_CLOSED";
+    const DISPUTE_SENT_TO_BANK                      = "DISPUTE_SENT_TO_BANK";
+
+    const TRANSFER_SETTLEMENT_CREATED               = "TRANSFER_SETTLEMENT_CREATED";
+    const TRANSFER_SETTLEMENT_SUCCEEDED             = "TRANSFER_SETTLEMENT_SUCCEEDED";
+    const TRANSFER_SETTLEMENT_FAILED                = "TRANSFER_SETTLEMENT_FAILED";
+
+    const MANDATE_CREATED                           = "MANDATE_CREATED";
+    const MANDATED_FAILED                           = "MANDATED_FAILED";
+    const MANDATE_ACTIVATED                         = "MANDATE_ACTIVATED";
+    const MANDATE_SUBMITTED                         = "MANDATE_SUBMITTED";
+
+    const PREAUTHORIZATION_PAYMENT_WAITING          = "PREAUTHORIZATION_PAYMENT_WAITING";
+    // (not currently available) 'PREAUTHORIZATION_PAYMENT_EXPIRED',
+    const PREAUTHORIZATION_PAYMENT_CANCELED         = "PREAUTHORIZATION_PAYMENT_CANCELED";
+    const PREAUTHORIZATION_PAYMENT_VALIDATED        = "PREAUTHORIZATION_PAYMENT_VALIDATED";
+
     public static function getKYCRefusalArray() : array
     {
         return [
@@ -170,64 +231,64 @@ class MangoPayConstants
     public static function getAllEventTypes()
     {
         return [
-            'PAYIN_NORMAL_CREATED',
-            'PAYIN_NORMAL_SUCCEEDED',
-            'PAYIN_NORMAL_FAILED',
+            self::PAYIN_NORMAL_CREATED,
+            self::PAYIN_NORMAL_SUCCEEDED,
+            self::PAYIN_NORMAL_FAILED,
 
-            'PAYOUT_NORMAL_CREATED',
-            'PAYOUT_NORMAL_SUCCEEDED',
-            'PAYOUT_NORMAL_FAILED',
+            self::PAYOUT_NORMAL_CREATED,
+            self::PAYOUT_NORMAL_SUCCEEDED,
+            self::PAYOUT_NORMAL_FAILED,
 
-            'TRANSFER_NORMAL_CREATED',
-            'TRANSFER_NORMAL_SUCCEEDED',
-            'TRANSFER_NORMAL_FAILED',
+            self::TRANSFER_NORMAL_CREATED,
+            self::TRANSFER_NORMAL_SUCCEEDED,
+            self::TRANSFER_NORMAL_FAILED,
 
-            'PAYIN_REFUND_CREATED',
-            'PAYIN_REFUND_SUCCEEDED',
-            'PAYIN_REFUND_FAILED',
+            self::PAYIN_REFUND_CREATED,
+            self::PAYIN_REFUND_SUCCEEDED,
+            self::PAYIN_REFUND_FAILED,
 
-            'PAYOUT_REFUND_CREATED',
-            'PAYOUT_REFUND_SUCCEEDED',
-            'PAYOUT_REFUND_FAILED',
+            self::PAYOUT_REFUND_CREATED,
+            self::PAYOUT_REFUND_SUCCEEDED,
+            self::PAYOUT_REFUND_FAILED,
 
-            'TRANSFER_REFUND_CREATED',
-            'TRANSFER_REFUND_SUCCEEDED',
-            'TRANSFER_REFUND_FAILED',
+            self::TRANSFER_REFUND_CREATED,
+            self::TRANSFER_REFUND_SUCCEEDED,
+            self::TRANSFER_REFUND_FAILED,
 
-            'PAYIN_REPUDIATION_CREATED',
-            'PAYIN_REPUDIATION_SUCCEEDED',
-            'PAYIN_REPUDIATION_FAILED',
+            self::PAYIN_REPUDIATION_CREATED,
+            self::PAYIN_REPUDIATION_SUCCEEDED,
+            self::PAYIN_REPUDIATION_FAILED,
 
-            'KYC_CREATED',
-            'KYC_SUCCEEDED',
-            'KYC_FAILED',
-            'KYC_VALIDATION_ASKED',
+            self::KYC_CREATED,
+            self::KYC_SUCCEEDED,
+            self::KYC_FAILED,
+            self::KYC_VALIDATION_ASKED,
 
-            'DISPUTE_DOCUMENT_CREATED',
-            'DISPUTE_DOCUMENT_VALIDATION_ASKED',
-            'DISPUTE_DOCUMENT_SUCCEEDED',
-            'DISPUTE_DOCUMENT_FAILED',
+            self::DISPUTE_DOCUMENT_CREATED,
+            self::DISPUTE_DOCUMENT_VALIDATION_ASKED,
+            self::DISPUTE_DOCUMENT_SUCCEEDED,
+            self::DISPUTE_DOCUMENT_FAILED,
 
-            'DISPUTE_CREATED',
-            'DISPUTE_SUBMITTED',
-            'DISPUTE_ACTION_REQUIRED',
-            'DISPUTE_FURTHER_ACTION_REQUIRED',
-            'DISPUTE_CLOSED',
-            'DISPUTE_SENT_TO_BANK',
+            self::DISPUTE_CREATED,
+            self::DISPUTE_SUBMITTED,
+            self::DISPUTE_ACTION_REQUIRED,
+            self::DISPUTE_FURTHER_ACTION_REQUIRED,
+            self::DISPUTE_CLOSED,
+            self::DISPUTE_SENT_TO_BANK,
 
-            'TRANSFER_SETTLEMENT_CREATED',
-            'TRANSFER_SETTLEMENT_SUCCEEDED',
-            'TRANSFER_SETTLEMENT_FAILED',
+            self::TRANSFER_SETTLEMENT_CREATED,
+            self::TRANSFER_SETTLEMENT_SUCCEEDED,
+            self::TRANSFER_SETTLEMENT_FAILED,
 
-            'MANDATE_CREATED',
-            'MANDATED_FAILED',
-            'MANDATE_ACTIVATED',
-            'MANDATE_SUBMITTED',
+            self::MANDATE_CREATED,
+            self::MANDATED_FAILED,
+            self::MANDATE_ACTIVATED,
+            self::MANDATE_SUBMITTED,
 
-            'PREAUTHORIZATION_PAYMENT_WAITING',
+            self::PREAUTHORIZATION_PAYMENT_WAITING,
             // (not currently available) 'PREAUTHORIZATION_PAYMENT_EXPIRED',
-            'PREAUTHORIZATION_PAYMENT_CANCELED',
-            'PREAUTHORIZATION_PAYMENT_VALIDATED',
+            self::PREAUTHORIZATION_PAYMENT_CANCELED,
+            self::PREAUTHORIZATION_PAYMENT_VALIDATED
 
         ];
     }
