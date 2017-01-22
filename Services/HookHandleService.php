@@ -15,6 +15,7 @@
 namespace PartFire\MangoPayBundle\Services;
 
 use Composer\EventDispatcher\Event;
+use Fruitful\FFConstants;
 use PartFire\CommonBundle\Services\Output\CommonOutputInterface;
 use PartFire\MangoPayBundle\Entity\Hook;
 use PartFire\MangoPayBundle\Entity\Repository\HookRepository;
@@ -47,22 +48,18 @@ class HookHandleService
         $this->event = $event;
     }
 
-    public function processRequest($bodyJson)
+    public function processRequest($getArray)
     {
-        $formattedJson = json_encode($bodyJson);
+        $formattedJson = json_encode($getArray);
         $this->sendMessage(
             "New Webhook received from MangoPay \n ```" . $formattedJson . "```",
             ':leftwards_arrow_with_hook:'
         );
 
         $hookQueueEntity = new Hook();
-        $hookQueueEntity->setHookId($bodyJson->Id);
-        $hookQueueEntity->setHookCreationDate($bodyJson->CreationDate);
-        $hookQueueEntity->setHookTag($bodyJson->Tag);
-        $hookQueueEntity->setHookUrl($bodyJson->Url);
-        $hookQueueEntity->setHookStatus($bodyJson->Status);
-        $hookQueueEntity->setHookValidity($bodyJson->Validity);
-        $hookQueueEntity->setHookEventType($bodyJson->EventType);
+        $hookQueueEntity->setEventType($getArray[MangoPayConstants::HOOK_EVENT_TYPE]);
+        $hookQueueEntity->setResourceId($getArray[MangoPayConstants::HOOK_RESOURCE_ID]);
+        $hookQueueEntity->setDate($getArray[MangoPayConstants::HOOK_DATE]);
 
         $hookQueueEntity->setRawHookData($formattedJson);
 
@@ -76,7 +73,7 @@ class HookHandleService
         $output->info(count($this->getAllNewWebhooks()) . " new hooks to check");
 
         foreach($this->getAllNewWebhooks() as $webHook) {
-            $output->infoid(" Processing hook ID " . $webHook->getId() . " - Action Type = " . $webHook->getHookEventType());
+            $output->infoid(" Processing hook ID " . $webHook->getResourceId() . " - Action Type = " . $webHook->getEventType());
             try {
                 $this->processWebhook($webHook, $output);
             } catch (\Exception $e) {
@@ -89,11 +86,11 @@ class HookHandleService
     private function processWebhook(Hook $hook, CommonOutputInterface $commonOutput)
     {
         $hook = $this->setWebhookInProgress($hook);
-        if (MangoPayConstants::isEventTypeOk($hook->getHookEventType())) {
+        if (MangoPayConstants::isEventTypeOk($hook->getEventType())) {
 
         } else {
             $this->sendErrorMessage(
-                "Received webhook from MangoPay *" . $hook->getHookEventType() ."*, which is unknown. Firing event anyway \n ```" . json_encode($hook->getRawHookData()) . "```",
+                "Received webhook from MangoPay *" . $hook->getEventType() ."*, which is unknown. Firing event anyway \n ```" . json_encode($hook->getRawHookData()) . "```",
                 ':anguished:'
             );
         }
@@ -175,7 +172,7 @@ class HookHandleService
 
     private function sendErrorMessage(string $message, string $emoji)
     {
-        $this->slackService->sendMessage($message, FFConstants::SLACK_CHANNEL_ERROR, $emoji);
+        $this->slackService->sendMessage($message, 'ff-error', $emoji);
     }
 
 }

@@ -23,11 +23,10 @@ class ApiController extends ApiBaseController
 {
     public function webhookAction(Request $request)
     {
-        $body = $request->getContent();
-        $bodyJson = json_decode($body);
+        $allVars = $request->query->all();
 
         $onfidoWebHookService = $this->getPartFireMangoPayService();
-        $onfidoWebHookService->processRequest($bodyJson);
+        $onfidoWebHookService->processRequest($allVars);
 
         return new Response('', 201);
     }

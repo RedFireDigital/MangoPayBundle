@@ -71,6 +71,12 @@ class MangoPayConstants
     const       HOOK_IN_PROGRESS                    = "HOOK_IN_PROGRESS";
     const       HOOK_ACTIONED                       = "HOOK_ACTIONED";
 
+    // Hook Variables
+    // https://docs.mangopay.com/endpoints/v2.01/hooks#e246_the-hook-object
+    const       HOOK_EVENT_TYPE                     = "EventType";
+    const       HOOK_RESOURCE_ID                    = "RessourceId";  // Known spelling mistake in MangoPay Api
+    const       HOOK_DATE                           = "Date";
+
     public static function getKYCRefusalArray() : array
     {
         return [
@@ -154,6 +160,11 @@ class MangoPayConstants
     public static function isEventTypeOk($eventType)
     {
         return in_array($eventType, self::getAllEventTypes());
+    }
+
+    public static function isEventTypeToDoWithKYC($eventType)
+    {
+        return substr($eventType, 0,4) == "KYC_";
     }
 
     public static function getAllEventTypes()

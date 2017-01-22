@@ -35,53 +35,26 @@ use PartFire\MangoPayBundle\MangoPayConstants;
 class Hook extends CommonBaseEntity
 {
     /**
-     * @ORM\Column(name="hookId",type="string", length=255, unique=true, nullable=false);
+     * @ORM\Column(name="resource_id",type="string", length=255, nullable=false);
      *
      */
 
-    private $hookId;
+    private $resourceId;
 
     /**
-     * @ORM\Column(name="hook_creation_date",type="string", length=255, nullable=false);
+     * @ORM\Column(name="date",type="string", length=255, nullable=false);
      *
      */
 
-    private $hookCreationDate;
+    private $date;
+
 
     /**
-     * @ORM\Column(name="hook_tag",type="string", length=255, nullable=false);
+     * @ORM\Column(name="event_type",type="string", length=255, nullable=false);
      *
      */
 
-    private $hookTag;
-
-    /**
-     * @ORM\Column(name="hook_url",type="string", length=255, nullable=false);
-     *
-     */
-
-    private $hookUrl;
-
-    /**
-     * @ORM\Column(name="hook_status",type="string", length=255, nullable=false);
-     *
-     */
-
-    private $hookStatus;
-
-    /**
-     * @ORM\Column(name="hook_validity",type="string", length=255, nullable=false);
-     *
-     */
-
-    private $hookValidity;
-
-    /**
-     * @ORM\Column(name="hook_event_type",type="string", length=255, nullable=false);
-     *
-     */
-
-    private $hookEventType;
+    private $eventType;
 
     /**
      * @ORM\Column(name="raw_hook_data",type="string", length=500, nullable=false);
@@ -106,129 +79,49 @@ class Hook extends CommonBaseEntity
     /**
      * @return mixed
      */
-    public function getHookId()
+    public function getResourceId()
     {
-        return $this->hookId;
+        return $this->resourceId;
     }
 
     /**
-     * @param mixed $hookId
+     * @param mixed $resourceId
      */
-    public function setHookId($hookId)
+    public function setResourceId($resourceId)
     {
-        $this->hookId = $hookId;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getHookCreationDate()
-    {
-        return $this->hookCreationDate;
-    }
-
-    /**
-     * @param mixed $hookCreationDate
-     */
-    public function setHookCreationDate($hookCreationDate)
-    {
-        $this->hookCreationDate = $hookCreationDate;
+        $this->resourceId = $resourceId;
     }
 
     /**
      * @return mixed
      */
-    public function getHookTag()
+    public function getDate()
     {
-        return $this->hookTag;
+        return $this->date;
     }
 
     /**
-     * @param mixed $hookTag
+     * @param mixed $date
      */
-    public function setHookTag($hookTag)
+    public function setDate($date)
     {
-        $this->hookTag = $hookTag;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getHookUrl()
-    {
-        return $this->hookUrl;
-    }
-
-    /**
-     * @param mixed $hookUrl
-     */
-    public function setHookUrl($hookUrl)
-    {
-        $this->hookUrl = $hookUrl;
+        $this->date = $date;
     }
 
     /**
      * @return mixed
      */
-    public function getHookStatus()
+    public function getEventType()
     {
-        return $this->hookStatus;
+        return $this->eventType;
     }
 
     /**
-     * @param mixed $hookStatus
+     * @param mixed $eventType
      */
-    public function setHookStatus($hookStatus)
+    public function setEventType($eventType)
     {
-        $this->hookStatus = $hookStatus;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getHookValidity()
-    {
-        return $this->hookValidity;
-    }
-
-    /**
-     * @param mixed $hookValidity
-     */
-    public function setHookValidity($hookValidity)
-    {
-        $this->hookValidity = $hookValidity;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getHookEventType()
-    {
-        return $this->hookEventType;
-    }
-
-    /**
-     * @param mixed $hookEventType
-     */
-    public function setHookEventType($hookEventType)
-    {
-        $this->hookEventType = $hookEventType;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param string $status
-     */
-    public function setStatus(string $status)
-    {
-        $this->status = $status;
+        $this->eventType = $eventType;
     }
 
     /**
@@ -245,6 +138,22 @@ class Hook extends CommonBaseEntity
     public function setRawHookData($rawHookData)
     {
         $this->rawHookData = $rawHookData;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus(string $status)
+    {
+        $this->status = $status;
     }
 
 
