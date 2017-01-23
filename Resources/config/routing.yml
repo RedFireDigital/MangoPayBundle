@@ -1,3 +1,4 @@
 part_fire_mango_pay_homepage:
     path:     /
     defaults: { _controller: PartFireMangoPayBundle:Default:index }
+
