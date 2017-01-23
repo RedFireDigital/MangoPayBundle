@@ -51,9 +51,9 @@ class Card
      * @param $registrationData
      * @return null|\PartFire\MangoPayBundle\Models\DTOs\CardRegistration
      */
-    public function updateRegistration(string $cardRegisteredId, string $registrationData)
+    public function updateRegistration(string $cardRegisteredId, string $registrationData, string $errorCode)
     {
-        return $this->cardRegistrationQuery->update($cardRegisteredId, $registrationData);
+        return $this->cardRegistrationQuery->update($cardRegisteredId, $registrationData, $errorCode);
     }
 
     /**
@@ -72,6 +72,11 @@ class Card
     public function get($cardId)
     {
         return $this->cardQuery->get($cardId);
+    }
+
+    public function getAll()
+    {
+
     }
 
     /**

@@ -63,12 +63,18 @@ class CardRegistrationsQuery extends AbstractQuery implements CardRegistrationsQ
         }
     }
 
-    public function update(string $cardRegisteredId, string $registrationData): CardRegistrationDto
+    public function update(string $cardRegisteredId, string $registrationData, string $errorCode): CardRegistrationDto
     {
         try {
             $cardRegister = $this->mangoPayApi->CardRegistrations->Get($cardRegisteredId);
             if ($cardRegister instanceof CardRegistration) {
-                $cardRegister->RegistrationData = 'data=' . $registrationData;
+
+                if ($registrationData != '') {
+                    $cardRegister->RegistrationData = 'data=' . $registrationData;
+                } else {
+                    $cardRegister->RegistrationData = 'errorCode=' . $errorCode;
+                }
+
                 $updatedCardRegister = $this->mangoPayApi->CardRegistrations->Update($cardRegister);
 
                 if ($updatedCardRegister instanceof CardRegistration) {
