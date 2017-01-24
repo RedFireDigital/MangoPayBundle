@@ -38,6 +38,8 @@ class KycDocumentTranslator
         $kycDocumentDto->setOwnerId($mangoKycDocument->UserId);
         $kycDocumentDto->setStatus($mangoKycDocument->Status);
         $kycDocumentDto->setDocumentId($mangoKycDocument->Id);
+        $kycDocumentDto->setRefusedReasonMessage($mangoKycDocument->RefusedReasonMessage);
+        $kycDocumentDto->setRefusedReasonType($mangoKycDocument->RefusedReasonType);
         return $kycDocumentDto;
     }
 }

@@ -26,6 +26,10 @@ class KycDocument
 
     protected $documentId;
 
+    protected $refusedReasonMessage;
+
+    protected $refusedReasonType;
+
     /**
      * @return mixed
      */
@@ -104,5 +108,37 @@ class KycDocument
     public function setDocumentId($documentId)
     {
         $this->documentId = $documentId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRefusedReasonMessage()
+    {
+        return $this->refusedReasonMessage;
+    }
+
+    /**
+     * @param mixed $refusedReasonMessage
+     */
+    public function setRefusedReasonMessage($refusedReasonMessage)
+    {
+        $this->refusedReasonMessage = $refusedReasonMessage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRefusedReasonType()
+    {
+        return $this->refusedReasonType;
+    }
+
+    /**
+     * @param mixed $refusedReasonType
+     */
+    public function setRefusedReasonType($refusedReasonType)
+    {
+        $this->refusedReasonType = $refusedReasonType;
     }
 }
