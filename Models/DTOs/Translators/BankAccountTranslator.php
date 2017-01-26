@@ -56,6 +56,7 @@ class BankAccountTranslator
         $ibanBankAccount->setType($bankAccount->Type);
         $ibanBankAccount->setIban($bankAccount->Details->IBAN);
         $ibanBankAccount->setBic($bankAccount->Details->Bic);
+        $ibanBankAccount->setCreationDate($bankAccount->CreationDate);
 
         $address = new AddressDto();
         $address->setAddressLine1($bankAccount->OwnerAddress->AddressLine1);
@@ -98,6 +99,8 @@ class BankAccountTranslator
         $gbBankAccount->setType($bankAccount->Type);
         $gbBankAccount->setSortCode($bankAccount->Details->SortCode);
         $gbBankAccount->setAccountNumber($bankAccount->Details->AccountNumber);
+        $gbBankAccount->setCreationDate($bankAccount->CreationDate);
+
 
         $address = new AddressDto();
         $address->setAddressLine1($bankAccount->OwnerAddress->AddressLine1);
