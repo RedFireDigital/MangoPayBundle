@@ -32,6 +32,28 @@ class BankwireDirectPayIn
 
     private $status;
 
+    private $resultCode;
+
+    private $resultMessage;
+
+    private $type;
+
+    private $nature;
+
+    private $paymentType;
+
+    private $executionType;
+
+    private $wireReference;
+
+    private $bankAccountType;
+
+    private $bankAccountOwnerName;
+
+    private $bankAccountIban;
+
+    private $bankAccountBic;
+
     /**
      * @return mixed
      */
@@ -174,5 +196,181 @@ class BankwireDirectPayIn
     public function setStatus($status)
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResultCode()
+    {
+        return $this->resultCode;
+    }
+
+    /**
+     * @param mixed $resultCode
+     */
+    public function setResultCode($resultCode)
+    {
+        $this->resultCode = $resultCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResultMessage()
+    {
+        return $this->resultMessage;
+    }
+
+    /**
+     * @param mixed $resultMessage
+     */
+    public function setResultMessage($resultMessage)
+    {
+        $this->resultMessage = $resultMessage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNature()
+    {
+        return $this->nature;
+    }
+
+    /**
+     * @param mixed $nature
+     */
+    public function setNature($nature)
+    {
+        $this->nature = $nature;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaymentType()
+    {
+        return $this->paymentType;
+    }
+
+    /**
+     * @param mixed $paymentType
+     */
+    public function setPaymentType($paymentType)
+    {
+        $this->paymentType = $paymentType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExecutionType()
+    {
+        return $this->executionType;
+    }
+
+    /**
+     * @param mixed $executionType
+     */
+    public function setExecutionType($executionType)
+    {
+        $this->executionType = $executionType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWireReference()
+    {
+        return $this->wireReference;
+    }
+
+    /**
+     * @param mixed $wireReference
+     */
+    public function setWireReference($wireReference)
+    {
+        $this->wireReference = $wireReference;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBankAccountType()
+    {
+        return $this->bankAccountType;
+    }
+
+    /**
+     * @param mixed $bankAccountType
+     */
+    public function setBankAccountType($bankAccountType)
+    {
+        $this->bankAccountType = $bankAccountType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBankAccountOwnerName()
+    {
+        return $this->bankAccountOwnerName;
+    }
+
+    /**
+     * @param mixed $bankAccountOwnerName
+     */
+    public function setBankAccountOwnerName($bankAccountOwnerName)
+    {
+        $this->bankAccountOwnerName = $bankAccountOwnerName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBankAccountIban()
+    {
+        return $this->bankAccountIban;
+    }
+
+    /**
+     * @param mixed $bankAccountIban
+     */
+    public function setBankAccountIban($bankAccountIban)
+    {
+        $this->bankAccountIban = $bankAccountIban;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBankAccountBic()
+    {
+        return $this->bankAccountBic;
+    }
+
+    /**
+     * @param mixed $bankAccountBic
+     */
+    public function setBankAccountBic($bankAccountBic)
+    {
+        $this->bankAccountBic = $bankAccountBic;
     }
 }

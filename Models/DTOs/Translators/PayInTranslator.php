@@ -98,6 +98,15 @@ class PayInTranslator
         $cardDirectPayIn->setDeclaredDebitedFundsCurrency($payIn->PaymentDetails->DeclaredDebitedFunds->Currency);
         $cardDirectPayIn->setDeclaredFeesAmount($payIn->PaymentDetails->DeclaredFees->Amount);
         $cardDirectPayIn->setDeclaredFeesCurrency($payIn->PaymentDetails->DeclaredFees->Currency);
+        $cardDirectPayIn->setType($payIn->Type);
+        $cardDirectPayIn->setNature($payIn->Nature);
+        $cardDirectPayIn->setPaymentType($payIn->PaymentType);
+        $cardDirectPayIn->setExecutionType($payIn->ExecutionType);
+        $cardDirectPayIn->setWireReference($payIn->PaymentDetails->WireReference);
+        $cardDirectPayIn->setBankAccountType($payIn->PaymentDetails->BankAccount->Type);
+        $cardDirectPayIn->setBankAccountOwnerName($payIn->PaymentDetails->BankAccount->OwnerName);
+        $cardDirectPayIn->setBankAccountIban($payIn->PaymentDetails->BankAccount->Details->IBAN);
+        $cardDirectPayIn->setBankAccountBic($payIn->PaymentDetails->BankAccount->Details->BIC);
 
         return $cardDirectPayIn;
     }
