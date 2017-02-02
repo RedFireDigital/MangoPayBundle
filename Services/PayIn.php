@@ -37,4 +37,9 @@ class PayIn
     {
         return $this->payInQuery->createBankWireDirectPayIn($bankwireDirectPayIn);
     }
+
+    public function getPayIn($id)
+    {
+        return $this->payInQuery->get($id);
+    }
 }

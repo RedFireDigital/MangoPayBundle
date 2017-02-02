@@ -20,4 +20,6 @@ interface PayInQueryInterface
     public function createPayInCardDirect(CardDirectPayIn $cardDirectPayIn) : CardDirectPayIn;
 
     public function createBankWireDirectPayIn(BankwireDirectPayIn $bankwireDirectPayIn) : BankwireDirectPayIn;
+
+    public function get($id) : BankwireDirectPayIn;
 }

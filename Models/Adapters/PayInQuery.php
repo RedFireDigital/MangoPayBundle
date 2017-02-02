@@ -99,4 +99,22 @@ class PayInQuery extends AbstractQuery implements PayInQueryInterface
             throw new PartFireException($e->getMessage(), $e->getCode(), $e);
         }
     }
+
+    public function get($id) : BankwireDirectPayIn
+    {
+        try {
+            $payIn = $this->mangoPayApi->PayIns->Get($id);
+            if ($payIn instanceof PayIn) {
+                return $this->payInTranslator->translateMangoPayBankwireDirectPayInToDto($payIn);
+            }
+            $this->logger->addCritical("Failed to get PayIn");
+            throw new PartFireException("Failed to get PayIn");
+        } catch (ResponseException $e) {
+            $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
+            throw new PartFireException($e->getMessage(), $e->getCode(), $e);
+        } catch (Exception $e) {
+            $this->logger->addError($e->getMessage());
+            throw new PartFireException($e->getMessage(), $e->getCode(), $e);
+        }
+    }
 }

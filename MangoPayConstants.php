@@ -225,7 +225,12 @@ class MangoPayConstants
 
     public static function isEventTypeToDoWithKYC($eventType)
     {
-        return substr($eventType, 0,4) == "KYC_";
+        return substr($eventType, 0, 4) == "KYC_";
+    }
+
+    public static function isEventTypeToDoWithPayIn($eventType)
+    {
+        return substr($eventType, 0, 6) == "PAYIN_";
     }
 
     public static function getAllEventTypes()
