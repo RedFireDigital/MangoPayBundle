@@ -48,13 +48,18 @@ class HookCreateAllCommand extends ContainerAwareCommand
         $this->output = $this->getConsoleOutPutter();
         $this->output->setOutputer($output);
 
-        $url = 'http://stage.fruitful.co/';
+        //$url = 'http://stage.fruitful.co/';
+        $url = 'http://138.68.144.130/data-hole.php';
 
         $this->output->info("Create all hooks to point to a single end point");
 
         foreach (MangoPayConstants::getAllEventTypes() as $eventType) {
             $this->output->infoid("Creating end point for " . $eventType);
-            var_dump($this->getHookService()->create($eventType, $url));
+            try {
+                var_dump($this->getHookService()->create($eventType, $url));
+            } catch (\Exception $e) {
+                echo "ERROR - " . $e->getMessage() . "\n";
+            }
         }
     }
 

@@ -49,7 +49,8 @@ class HookUpdateAllCommand extends ContainerAwareCommand
 
         $this->output->info("Listing all hooks with MangoPay");
 
-        $url = 'https://stage.fruitful.co/updated';
+        //$url = 'https://stage.fruitful.co/updated';
+        $url = 'http://138.68.144.130/data-hole.php';
 
         $responses = [];
 
@@ -57,7 +58,11 @@ class HookUpdateAllCommand extends ContainerAwareCommand
         foreach($hookItems as $hook) {
             $hookId = $hook->Id;
             $this->output->infoid("Updating Hook ID " . $hookId . " with " . $url);
-            $responses[] = $this->getHookService()->update($hookId, $url);
+            try {
+                $responses[] = $this->getHookService()->update($hookId, $url);
+            } catch (\Exception $e) {
+                echo "ERROR - " . $e->getMessage() . "\n";
+            }
         }
 
         var_dump($responses);

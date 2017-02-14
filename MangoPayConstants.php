@@ -138,6 +138,47 @@ class MangoPayConstants
     const PREAUTHORIZATION_PAYMENT_CANCELED         = "PREAUTHORIZATION_PAYMENT_CANCELED";
     const PREAUTHORIZATION_PAYMENT_VALIDATED        = "PREAUTHORIZATION_PAYMENT_VALIDATED";
 
+    // PAY IN Status' CREATED, SUCCEEDED, FAILED
+    const       PAYIN_NEW                           = "PAY-IN-CREATED-WAITING-FOR-HOOK-UPDATE";
+    const       PAYIN_CREATED                       = "CREATED";
+    const       PAYIN_SUCCEEDED                     = "SUCCEEDED";
+    const       PAYIN_FAILED                        = "FAILED";
+
+
+
+    public static function getErrorCodeFriendlyReason($mangoErrorCode)
+    {
+
+    }
+
+    public static function getErrorCodeMangoPayReason($mangoErrorCode)
+    {
+        $msg = "";
+        switch ($mangoErrorCode) {
+            case "001999":
+                $msg = "Generic Operation error. Mangopay has no information for the bank yet.";
+                break;
+            case "001001":
+                $msg = "Unsufficient wallet balance. The wallet balance doesn’t allow to process transaction.";
+                break;
+            case "001002":
+                $msg = "Author is not the wallet owner. The user ID used as Author has to be the wallet owner.";
+                break;
+            case "001011":
+                $msg = "Transaction amount is higher than maximum permitted amount.";
+                break;
+            case "001012":
+                $msg = "Transaction amount is lower than minimum permitted amount.";
+                break;
+            case "001013":
+                $msg = "Invalid transaction amount.";
+                break;
+            case "001014":
+                $msg = "CreditedFunds must be more than 0 (DebitedFunds can not equal Fees).";
+                break;
+        }
+    }
+
     public static function getKYCRefusalArray() : array
     {
         return [
