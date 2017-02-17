@@ -14,6 +14,8 @@ namespace PartFire\MangoPayBundle\Models\DTOs;
 
 class CardDirectPayIn
 {
+    private $resourceId;
+
     private $tag;
 
     private $authorId;
@@ -318,5 +320,21 @@ class CardDirectPayIn
     public function setSecureModeRedirectUrl($secureModeRedirectUrl)
     {
         $this->secureModeRedirectUrl = $secureModeRedirectUrl;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResourceId()
+    {
+        return $this->resourceId;
+    }
+
+    /**
+     * @param mixed $resourceId
+     */
+    public function setResourceId($resourceId)
+    {
+        $this->resourceId = $resourceId;
     }
 }

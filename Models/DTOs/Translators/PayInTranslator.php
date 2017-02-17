@@ -63,6 +63,7 @@ class PayInTranslator
         $cardDirectPayIn->setSecureModeRedirectUrl($payIn->ExecutionDetails->SecureModeRedirectURL);
         $cardDirectPayIn->setSecureModeNeeded($payIn->ExecutionDetails->SecureModeNeeded);
         $cardDirectPayIn->setTag($payIn->Tag);
+        $cardDirectPayIn->setResourceId($payIn->Id);
         return $cardDirectPayIn;
     }
 
@@ -107,6 +108,7 @@ class PayInTranslator
         $cardDirectPayIn->setBankAccountOwnerName($payIn->PaymentDetails->BankAccount->OwnerName);
         $cardDirectPayIn->setBankAccountIban($payIn->PaymentDetails->BankAccount->Details->IBAN);
         $cardDirectPayIn->setBankAccountBic($payIn->PaymentDetails->BankAccount->Details->BIC);
+        $cardDirectPayIn->setResourceId($payIn->Id);
 
         return $cardDirectPayIn;
     }

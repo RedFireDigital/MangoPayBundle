@@ -14,6 +14,8 @@ namespace PartFire\MangoPayBundle\Models\DTOs;
 
 class BankwireDirectPayIn
 {
+    private $resourceId;
+
     private $tag;
 
     private $authorId;
@@ -372,5 +374,21 @@ class BankwireDirectPayIn
     public function setBankAccountBic($bankAccountBic)
     {
         $this->bankAccountBic = $bankAccountBic;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResourceId()
+    {
+        return $this->resourceId;
+    }
+
+    /**
+     * @param mixed $resourceId
+     */
+    public function setResourceId($resourceId)
+    {
+        $this->resourceId = $resourceId;
     }
 }

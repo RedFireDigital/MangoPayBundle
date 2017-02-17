@@ -139,10 +139,10 @@ class MangoPayConstants
     const PREAUTHORIZATION_PAYMENT_VALIDATED        = "PREAUTHORIZATION_PAYMENT_VALIDATED";
 
     // PAY IN Status' CREATED, SUCCEEDED, FAILED
-    const       PAYIN_NEW                           = "PAY-IN-CREATED-WAITING-FOR-HOOK-UPDATE";
-    const       PAYIN_CREATED                       = "CREATED";
-    const       PAYIN_SUCCEEDED                     = "SUCCEEDED";
-    const       PAYIN_FAILED                        = "FAILED";
+    const       NEW_WAITING                            = "NEW-WAITING-FOR-HOOK-UPDATE";
+    const       CREATED_VERIFIED                       = "CREATED";
+    const       SUCCEEDED_VERIFIED                     = "SUCCEEDED";
+    const       FAILED_VERIFIED                        = "FAILED";
 
 
 
