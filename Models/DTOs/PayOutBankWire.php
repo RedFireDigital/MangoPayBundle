@@ -44,6 +44,8 @@ class PayOutBankWire
 
     private $bankWireRef;
 
+    private $resourceId;
+
     /**
      * @return mixed
      */
@@ -282,5 +284,21 @@ class PayOutBankWire
     public function setBankWireRef($bankWireRef)
     {
         $this->bankWireRef = $bankWireRef;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResourceId()
+    {
+        return $this->resourceId;
+    }
+
+    /**
+     * @param mixed $resourceId
+     */
+    public function setResourceId($resourceId)
+    {
+        $this->resourceId = $resourceId;
     }
 }

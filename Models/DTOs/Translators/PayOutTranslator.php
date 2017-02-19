@@ -53,6 +53,7 @@ class PayOutTranslator
         $payOutBankWire->setNature($createdPayout->Nature);
         $payOutBankWire->setType($createdPayout->Type);
         $payOutBankWire->setBankWireRef($createdPayout->MeanOfPaymentDetails->BankWireRef);
+        $payOutBankWire->setResourceId($createdPayout->Id);
         return $payOutBankWire;
     }
 }

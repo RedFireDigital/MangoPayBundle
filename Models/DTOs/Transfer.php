@@ -14,6 +14,8 @@ namespace PartFire\MangoPayBundle\Models\DTOs;
 
 class Transfer
 {
+    protected $resourceId;
+
     protected $tag;
 
     protected $authorId;
@@ -228,5 +230,21 @@ class Transfer
     public function setResultMessage($resultMessage)
     {
         $this->resultMessage = $resultMessage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResourceId()
+    {
+        return $this->resourceId;
+    }
+
+    /**
+     * @param mixed $resourceId
+     */
+    public function setResourceId($resourceId)
+    {
+        $this->resourceId = $resourceId;
     }
 }
