@@ -19,5 +19,5 @@ interface KycDocumentQueryInterface
 
     public function submit(KycDocument $kycDocument);
 
-    public function get(string $userId, string $kycDocumentId) : KycDocument;
+    public function get(string $kycDocumentId) : KycDocument;
 }

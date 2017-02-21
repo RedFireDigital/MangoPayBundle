@@ -67,4 +67,18 @@ class TransferQuery extends AbstractQuery implements TransferQueryInterface
         }
         return $this->transferTranslator->convertMangoPayTransferToDTO($mangoTransfer);
     }
+
+    public function get(string $transferId) : Transfer
+    {
+        try {
+            $mangoTransfer = $this->mangoPayApi->Transfers->Get($transferId);
+        } catch (ResponseException $e) {
+            $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
+            return new PartFireException($e->getMessage(), $e->getCode());
+        } catch (Exception $e) {
+            $this->logger->addError($e->getMessage());
+            return new PartFireException($e->getMessage(), $e->getCode());
+        }
+        return $this->transferTranslator->convertMangoPayKycDocumentToDTO($mangoTransfer);
+    }
 }

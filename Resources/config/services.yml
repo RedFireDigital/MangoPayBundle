@@ -187,7 +187,14 @@ services:
 
     part_fire_mango_pay.services.webhook:
         class: PartFire\MangoPayBundle\Services\HookHandleService
-        arguments: ['@part_fire_mango_pay.factory_repo', '@part_fire_slack_service', '@event_dispatcher']
+        arguments:
+            - '@part_fire_mango_pay.factory_repo'
+            - '@part_fire_slack_service'
+            - '@event_dispatcher'
+            - '@part_fire_mango_pay.services.payin'
+            - '@part_fire_mango_pay.services.payout'
+            - '@part_fire_mango_pay.services.transfer'
+            - '@part_fire_mango_pay.services.kyc'
 
     part_fire_mango_pay.services.bank_account:
         class: PartFire\MangoPayBundle\Services\BankAccounts

@@ -50,8 +50,8 @@ class Kyc
         return $this->kycDocumentPageQuery->create($kycDocumentPage);
     }
 
-    public function getDocument(int $userId, int $kycDocumentId)
+    public function getDocument(int $kycDocumentId)
     {
-        return $this->kycDocumentQuery->get($userId, $kycDocumentId);
+        return $this->kycDocumentQuery->get($kycDocumentId);
     }
 }

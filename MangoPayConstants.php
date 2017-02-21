@@ -266,12 +266,73 @@ class MangoPayConstants
 
     public static function isEventTypeToDoWithKYC($eventType)
     {
-        return substr($eventType, 0, 4) == "KYC_";
+        return self::isEventType("KYC_", $eventType);
     }
 
-    public static function isEventTypeToDoWithPayIn($eventType)
+    public static function isEventTypeToDoWithPayInNormal($eventType)
     {
-        return substr($eventType, 0, 6) == "PAYIN_";
+        return self::isEventType("PAYIN_NORMAL_", $eventType);
+    }
+
+    public static function isEventTypeToDoWithPayOutNormal($eventType)
+    {
+        return self::isEventType("PAYOUT_NORMAL_", $eventType);
+    }
+
+    public static function isEventTypeToDoWithTransferNormal($eventType)
+    {
+        return self::isEventType("TRANSFER_NORMAL_", $eventType);
+    }
+
+    public static function isEventTypeToDoWithPayInRefund($eventType)
+    {
+        return self::isEventType("PAYIN_REFUND_", $eventType);
+    }
+
+    public static function isEventTypeToDoWithPayOutRefund($eventType)
+    {
+        return self::isEventType("PAYOUT_REFUND_", $eventType);
+    }
+
+    public static function isEventTypeToDoWithTransferRefund($eventType)
+    {
+        return self::isEventType("TRANSFER_REFUND_", $eventType);
+    }
+
+    public static function isEventTypeToDoWithPayInRepudiation($eventType)
+    {
+        return self::isEventType("PAYIN_REPUDIATION_", $eventType);
+    }
+
+    public static function isEventTypeToDoWithDisputeDocument($eventType)
+    {
+        return self::isEventType("DISPUTE_DOCUMENT_", $eventType);
+    }
+
+    public static function isEventTypeToDoWithDispute($eventType)
+    {
+        return self::isEventType("DISPUTE_", $eventType);
+    }
+
+    public static function isEventTypeToDoWithTransferSettlement($eventType)
+    {
+        return self::isEventType("TRANSFER_SETTLEMENT_", $eventType);
+    }
+
+    public static function isEventTypeToDoWithMandate($eventType)
+    {
+        return self::isEventType("MANDATE_", $eventType) || self::isEventType("MANDATED_", $eventType);
+    }
+
+    public static function isEventTypeToDoWithPreauthorisation($eventType)
+    {
+        return self::isEventType("PREAUTHORIZATION_", $eventType);
+    }
+
+    private static function isEventType($compareToEvent, $eventName)
+    {
+        $compareToEventLength = strlen($compareToEvent);
+        return substr($eventName, 0, $compareToEventLength) === $compareToEvent;
     }
 
     public static function getAllEventTypes()

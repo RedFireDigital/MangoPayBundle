@@ -28,4 +28,9 @@ class Transfer
     {
         return $this->transferQuery->create($transfer);
     }
+
+    public function get(string $transferId) : Transfer
+    {
+        return $this->transferQuery->get($transferId);
+    }
 }

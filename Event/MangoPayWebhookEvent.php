@@ -24,6 +24,7 @@ class MangoPayWebhookEvent extends Event
 
     private $output;
     private $hook;
+    private $dto;
 
     /**
      * @return mixed
@@ -56,5 +57,22 @@ class MangoPayWebhookEvent extends Event
     {
         $this->output = $output;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDto()
+    {
+        return $this->dto;
+    }
+
+    /**
+     * @param mixed $dto
+     */
+    public function setDto($dto)
+    {
+        $this->dto = $dto;
+    }
+
 
 }

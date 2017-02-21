@@ -64,6 +64,13 @@ class Hook extends CommonBaseEntity
     private $rawHookData;
 
     /**
+     * @ORM\Column(name="raw_dto_data",type="text", nullable=true);
+     *
+     */
+
+    private $dto;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=200, nullable=false)
@@ -154,6 +161,22 @@ class Hook extends CommonBaseEntity
     public function setStatus(string $status)
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDto()
+    {
+        return unserialize($this->dto);
+    }
+
+    /**
+     * @param mixed $dto
+     */
+    public function setDto($dto)
+    {
+        $this->dto = serialize($dto);
     }
 
 

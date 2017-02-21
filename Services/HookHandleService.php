@@ -32,6 +32,10 @@ class HookHandleService
      */
     protected $mangoPayRepositoryFactory;
     protected $slackService;
+    private $payIn;
+    private $payOut;
+    private $transfer;
+    private $kyc;
 
     const       CHECK_COMPLETE          = "check.completed";
     const       REPORT_COMPLETE         = "report.completed";
@@ -40,12 +44,20 @@ class HookHandleService
     public function __construct(
         MangoPayRepositoryFactory $mangoPayRepositoryFactory,
         SlackService $slackService,
-        EventDispatcherInterface $event
+        EventDispatcherInterface $event,
+        PayIn $payIn,
+        PayOut $payOut,
+        Transfer $transfer,
+        Kyc $kyc
     )
     {
         $this->mangoPayRepositoryFactory = $mangoPayRepositoryFactory;
         $this->slackService = $slackService;
         $this->event = $event;
+        $this->payIn = $payIn;
+        $this->payOut = $payOut;
+        $this->transfer = $transfer;
+        $this->kyc = $kyc;
     }
 
     public function processRequest($getArray)
@@ -95,12 +107,87 @@ class HookHandleService
             );
         }
 
+        $dtoResponse = $this->getDTOReponse($hook, $commonOutput);
+        $hook->setDto($dtoResponse);
+        $hook = $this->mangoPayRepositoryFactory->saveAndGetEntity($hook);
+
         $webhookEvent = new MangoPayWebhookEvent();
         $webhookEvent->setOutput($commonOutput);
         $webhookEvent->setHook($hook);
+        $webhookEvent->setDto($dtoResponse);
 
         $this->event->dispatch(MangoPayWebhookEvent::NAME, $webhookEvent);
         $this->setWebhookToActioned($hook);
+    }
+
+    private function getDTOReponse(Hook $hook, CommonOutputInterface $commonOutput)
+    {
+        $dto = null;
+        $errorMsg = null;
+
+        if (MangoPayConstants::isEventTypeToDoWithPayInNormal($hook->getEventType())) {
+            $dto = $this->payIn->getPayIn($hook->getResourceId());
+        }
+
+        if (MangoPayConstants::isEventTypeToDoWithPayOutNormal($hook->getEventType())) {
+            $dto = $this->payOut->get($hook->getResourceId());
+        }
+
+        if (MangoPayConstants::isEventTypeToDoWithTransferNormal($hook->getEventType())) {
+            $dto = $this->transfer->get($hook->getResourceId());
+        }
+
+        if (MangoPayConstants::isEventTypeToDoWithPayInRefund($hook->getEventType())) {
+            $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
+        }
+
+        if (MangoPayConstants::isEventTypeToDoWithPayOutRefund($hook->getEventType())) {
+            $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
+        }
+
+        if (MangoPayConstants::isEventTypeToDoWithTransferRefund($hook->getEventType())) {
+            $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
+        }
+
+        if (MangoPayConstants::isEventTypeToDoWithPayInRepudiation($hook->getEventType())) {
+            $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
+        }
+
+        if (MangoPayConstants::isEventTypeToDoWithKYC($hook->getEventType())) {
+            $dto = $this->kyc->getDocument($hook->getResourceId());
+        }
+
+        if (MangoPayConstants::isEventTypeToDoWithDisputeDocument($hook->getEventType())) {
+            $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
+        }
+
+        if (MangoPayConstants::isEventTypeToDoWithDispute($hook->getEventType())) {
+            $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
+        }
+
+        if (MangoPayConstants::isEventTypeToDoWithTransferSettlement($hook->getEventType())) {
+            $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
+        }
+
+        if (MangoPayConstants::isEventTypeToDoWithMandate($hook->getEventType())) {
+            $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
+        }
+
+        if (MangoPayConstants::isEventTypeToDoWithPreauthorisation($hook->getEventType())) {
+            $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
+        }
+
+        if (!is_null($errorMsg)) {
+            $this->sendMessage(
+                "Error, no code to action HookHandleService \n ```" . $errorMsg . "```",
+                ':leftwards_arrow_with_hook:'
+            );
+            $commonOutput->error($errorMsg);
+
+            throw new \Exception("Inbound hook with event " . $hook->getEventType() . " not handled!");
+        }
+
+        return $dto;
     }
 
     private function setWebhookInProgress(Hook $hook) : Hook

@@ -63,10 +63,10 @@ class KycDocumentQuery extends AbstractQuery implements KycDocumentQueryInterfac
         return $this->mangoPayApi->Users->UpdateKycDocument($kycDocumentDto->getOwnerId(), $mangoKycDocument);
     }
 
-    public function get(string $userId, string $kycDocumentId) : KycDocument
+    public function get(string $kycDocumentId) : KycDocument
     {
         try {
-            $mangoKycDocument = $this->mangoPayApi->Users->GetKycDocument($userId, $kycDocumentId);
+            $mangoKycDocument = $this->mangoPayApi->KycDocuments->Get($kycDocumentId);
         } catch (ResponseException $e) {
             $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
             return new PartFireException($e->getMessage(), $e->getCode());

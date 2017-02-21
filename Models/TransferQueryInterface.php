@@ -18,4 +18,5 @@ use PartFire\MangoPayBundle\Models\DTOs\Transfer;
 interface TransferQueryInterface
 {
     public function create(Transfer $transfer);
+    public function get(string $transferId) : Transfer;
 }
