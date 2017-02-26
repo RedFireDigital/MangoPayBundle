@@ -13,6 +13,7 @@
 namespace PartFire\MangoPayBundle\Models\Adapters;
 
 use MangoPay\MangoPayApi;
+use Monolog\Handler\StreamHandler;
 use Symfony\Bridge\Monolog\Logger;
 
 abstract class AbstractQuery
@@ -28,12 +29,15 @@ abstract class AbstractQuery
 
     public function __construct($clientId, $clientPassword, $baseUrl, MangoPayApi $mangoPayApi, Logger $logger)
     {
+        $this->logger = $logger;
+        $path = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR. '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR. 'var/logs/mangopay.log';
+        $this->logger->pushHandler(new StreamHandler($path, Logger::DEBUG));
+
         $this->mangoPayApi = $mangoPayApi;
         $this->mangoPayApi->Config->ClientId = $clientId;
         $this->mangoPayApi->Config->ClientPassword = $clientPassword;
         $this->mangoPayApi->Config->BaseUrl = $baseUrl;
         $this->mangoPayApi->Config->TemporaryFolder = sys_get_temp_dir();
-        $this->mangoPayApi->setLogger($logger);
-        $this->logger = $logger;
+        $this->mangoPayApi->setLogger($this->logger);
     }
 }
