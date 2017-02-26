@@ -50,6 +50,10 @@ class CardDirectPayIn
 
     private $status;
 
+    private $resultCode;
+
+    private $resultMessage;
+
     /**
      * @return mixed
      */
@@ -337,4 +341,39 @@ class CardDirectPayIn
     {
         $this->resourceId = $resourceId;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getResultCode()
+    {
+        return $this->resultCode;
+    }
+
+    /**
+     * @param mixed $resultCode
+     */
+    public function setResultCode($resultCode)
+    {
+        $this->resultCode = $resultCode;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResultMessage()
+    {
+        return $this->resultMessage;
+    }
+
+    /**
+     * @param mixed $resultMessage
+     */
+    public function setResultMessage($resultMessage)
+    {
+        $this->resultMessage = $resultMessage;
+    }
+
+
+
 }

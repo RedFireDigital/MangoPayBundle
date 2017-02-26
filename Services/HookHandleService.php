@@ -91,7 +91,6 @@ class HookHandleService
             } catch (\Exception $e) {
                 $output->error($e->getMessage());
             }
-
         }
     }
 

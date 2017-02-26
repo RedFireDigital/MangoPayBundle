@@ -50,15 +50,7 @@ class PayInQuery extends AbstractQuery implements PayInQueryInterface
             $createdPayIn = $this->mangoPayApi->PayIns->Create($payIn);
 
             if ($createdPayIn instanceof PayIn) {
-                if ($createdPayIn->Status == PayInStatus::Succeeded) {
-                    return $this->payInTranslator->translateMangoPayDirectPayInToDto($createdPayIn);
-                }
-                $this->logger->addCritical(
-                    "Pay-In has been created with status: ".$createdPayIn->Status . ' (result code: ' . $createdPayIn->ResultCode . ')'
-                );
-                throw new PartFireException(
-                    "Pay-In has been created with status: ".$createdPayIn->Status . ' (result code: ' . $createdPayIn->ResultCode . ')'
-                );
+                return $this->payInTranslator->translateMangoPayDirectPayInToDto($createdPayIn);
             }
             $this->logger->addCritical("Failed to create PayIn");
             throw new PartFireException("Failed to create PayIn");

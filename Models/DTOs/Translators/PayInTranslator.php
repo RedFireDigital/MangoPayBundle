@@ -64,6 +64,8 @@ class PayInTranslator
         $cardDirectPayIn->setSecureModeNeeded($payIn->ExecutionDetails->SecureModeNeeded);
         $cardDirectPayIn->setTag($payIn->Tag);
         $cardDirectPayIn->setResourceId($payIn->Id);
+        $cardDirectPayIn->setResultCode($payIn->ResultCode);
+        $cardDirectPayIn->setResultMessage($payIn->ResultMessage);
         return $cardDirectPayIn;
     }
 
