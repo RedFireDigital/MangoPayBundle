@@ -36,6 +36,7 @@ class HookHandleService
     private $payOut;
     private $transfer;
     private $kyc;
+    private $currentEnvironment;
 
     const       CHECK_COMPLETE          = "check.completed";
     const       REPORT_COMPLETE         = "report.completed";
@@ -48,7 +49,8 @@ class HookHandleService
         PayIn $payIn,
         PayOut $payOut,
         Transfer $transfer,
-        Kyc $kyc
+        Kyc $kyc,
+        $currentEnvironment
     )
     {
         $this->mangoPayRepositoryFactory = $mangoPayRepositoryFactory;
@@ -58,6 +60,7 @@ class HookHandleService
         $this->payOut = $payOut;
         $this->transfer = $transfer;
         $this->kyc = $kyc;
+        $this->currentEnvironment = $currentEnvironment;
     }
 
     public function processRequest($getArray)
@@ -107,6 +110,11 @@ class HookHandleService
         }
 
         $dtoResponse = $this->getDTOReponse($hook, $commonOutput);
+
+        if ($this->currentEnvironment != 'prod') {
+            $dtoResponse->setStatus($hook->getStatus());
+        }
+
         $hook->setDto($dtoResponse);
         $hook = $this->mangoPayRepositoryFactory->saveAndGetEntity($hook);
 

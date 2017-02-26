@@ -195,6 +195,7 @@ services:
             - '@part_fire_mango_pay.services.payout'
             - '@part_fire_mango_pay.services.transfer'
             - '@part_fire_mango_pay.services.kyc'
+            - '%kernel.environment%'
 
     part_fire_mango_pay.services.bank_account:
         class: PartFire\MangoPayBundle\Services\BankAccounts
