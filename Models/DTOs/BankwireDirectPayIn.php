@@ -56,6 +56,10 @@ class BankwireDirectPayIn
 
     private $bankAccountBic;
 
+    public function getAmount()
+    {
+        return $this->getDeclaredDebitedFundsAmount();
+    }
     /**
      * @return mixed
      */
