@@ -144,6 +144,10 @@ class MangoPayConstants
     const       SUCCEEDED_VERIFIED                     = "SUCCEEDED";
     const       FAILED_VERIFIED                        = "FAILED";
 
+    // PAY IN TYPES
+    const       PAY_IN_TYPE_CARD                        = "CARD";
+    const       PAY_IN_TYPE_BANK_WIRE                   = "BANK_WIRE";
+
 
 
     public static function getErrorCodeFriendlyReason($mangoErrorCode)

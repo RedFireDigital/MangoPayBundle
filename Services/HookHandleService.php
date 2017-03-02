@@ -100,11 +100,14 @@ class HookHandleService
     private function processWebhook(Hook $hook, CommonOutputInterface $commonOutput)
     {
         $hook = $this->setWebhookInProgress($hook);
+        $commonOutput->infoid(" Webhook set to in progress");
         if (MangoPayConstants::isEventTypeOk($hook->getEventType())) {
 
         } else {
+            $errMsg = "Received webhook from MangoPay *" . $hook->getEventType() ."*, which is unknown. Firing event anyway \n ```" . json_encode($hook->getRawHookData()) . "```";
+            $commonOutput->error($errMsg);
             $this->sendErrorMessage(
-                "Received webhook from MangoPay *" . $hook->getEventType() ."*, which is unknown. Firing event anyway \n ```" . json_encode($hook->getRawHookData()) . "```",
+                $errMsg,
                 ':anguished:'
             );
         }
@@ -112,7 +115,9 @@ class HookHandleService
         $dtoResponse = $this->getDTOReponse($hook, $commonOutput);
 
         if ($this->currentEnvironment != 'prod') {
-            $dtoResponse->setStatus($hook->getStatus());
+            $forcedTo = $this->getForcedTypeFromEventType($hook->getEventType());
+            $commonOutput->highlight("We are in " . $this->currentEnvironment . " mode! - DTO came back as " . $dtoResponse->getStatus() . " but forcing to " . $forcedTo);
+            $dtoResponse->setStatus($forcedTo);
         }
 
         $hook->setDto($dtoResponse);
@@ -124,7 +129,14 @@ class HookHandleService
         $webhookEvent->setDto($dtoResponse);
 
         $this->event->dispatch(MangoPayWebhookEvent::NAME, $webhookEvent);
-        $this->setWebhookToActioned($hook);
+        $hook = $this->setWebhookToActioned($hook);
+        $commonOutput->info("Hook ID" . $hook->getId() . " regarding resourceId " . $hook->getResourceId() . " has finished");
+    }
+
+    private function getForcedTypeFromEventType($eventType)
+    {
+        $split = explode("_", $eventType);
+        return end($split);
     }
 
     private function getDTOReponse(Hook $hook, CommonOutputInterface $commonOutput)
@@ -133,54 +145,67 @@ class HookHandleService
         $errorMsg = null;
 
         if (MangoPayConstants::isEventTypeToDoWithPayInNormal($hook->getEventType())) {
+            $commonOutput->infoid(" Hook is to do with a Pay In Normal");
             $dto = $this->payIn->getPayIn($hook->getResourceId());
         }
 
         if (MangoPayConstants::isEventTypeToDoWithPayOutNormal($hook->getEventType())) {
+            $commonOutput->infoid(" Hook is to do with a Pay Out Normal");
             $dto = $this->payOut->get($hook->getResourceId());
         }
 
         if (MangoPayConstants::isEventTypeToDoWithTransferNormal($hook->getEventType())) {
+            $commonOutput->infoid(" Hook is to do with a Transfer Normal");
             $dto = $this->transfer->get($hook->getResourceId());
         }
 
         if (MangoPayConstants::isEventTypeToDoWithPayInRefund($hook->getEventType())) {
+            $commonOutput->infoid(" Hook is to do with a Pay In Refund");
             $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
         }
 
         if (MangoPayConstants::isEventTypeToDoWithPayOutRefund($hook->getEventType())) {
+            $commonOutput->infoid(" Hook is to do with a Pay Out Refund");
             $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
         }
 
         if (MangoPayConstants::isEventTypeToDoWithTransferRefund($hook->getEventType())) {
+            $commonOutput->infoid(" Hook is to do with a Transfer Refund");
             $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
         }
 
         if (MangoPayConstants::isEventTypeToDoWithPayInRepudiation($hook->getEventType())) {
+            $commonOutput->infoid(" Hook is to do with a Pay In Repudiation");
             $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
         }
 
         if (MangoPayConstants::isEventTypeToDoWithKYC($hook->getEventType())) {
+            $commonOutput->infoid(" Hook is to do with a KYC");
             $dto = $this->kyc->getDocument($hook->getResourceId());
         }
 
         if (MangoPayConstants::isEventTypeToDoWithDisputeDocument($hook->getEventType())) {
+            $commonOutput->infoid(" Hook is to do with a Dispute Document");
             $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
         }
 
         if (MangoPayConstants::isEventTypeToDoWithDispute($hook->getEventType())) {
+            $commonOutput->infoid(" Hook is to do with a Dispute");
             $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
         }
 
         if (MangoPayConstants::isEventTypeToDoWithTransferSettlement($hook->getEventType())) {
+            $commonOutput->infoid(" Hook is to do with a Transfer Settlement");
             $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
         }
 
         if (MangoPayConstants::isEventTypeToDoWithMandate($hook->getEventType())) {
+            $commonOutput->infoid(" Hook is to do with a Mandate");
             $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
         }
 
         if (MangoPayConstants::isEventTypeToDoWithPreauthorisation($hook->getEventType())) {
+            $commonOutput->infoid(" Hook is to do with a PreAuthorisation");
             $errorMsg = $hook->getEventType() . " NOT YET HANDLED. NEEDS CODING UP!";
         }
 
@@ -192,6 +217,8 @@ class HookHandleService
             $commonOutput->error($errorMsg);
 
             throw new \Exception("Inbound hook with event " . $hook->getEventType() . " not handled!");
+        } else {
+            $commonOutput->infoid(" Hook returning with status " . $dto->getStatus());
         }
 
         return $dto;
@@ -203,10 +230,10 @@ class HookHandleService
         return $this->mangoPayRepositoryFactory->saveAndGetEntity($hook);
     }
 
-    private function setWebhookToActioned(Hook $hook)
+    private function setWebhookToActioned(Hook $hook) : Hook
     {
         $hook->setStatus(MangoPayConstants::HOOK_ACTIONED);
-        $this->mangoPayRepositoryFactory->saveAndGetEntity($hook);
+        return $this->mangoPayRepositoryFactory->saveAndGetEntity($hook);
     }
 
     private function getIdentityCheckReportByOnfidoReportId(OnfidoHookQueue $onfidoHookQueue) : ?IdentityCheckReport

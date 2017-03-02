@@ -59,7 +59,6 @@ class PayInTranslator
         $cardDirectPayIn->setCardType($payIn->PaymentDetails->CardType);
         $cardDirectPayIn->setSecureModeReturnUrl($payIn->ExecutionDetails->SecureModeReturnURL);
         $cardDirectPayIn->setSecureMode($payIn->ExecutionDetails->SecureMode);
-        $cardDirectPayIn->setSecureModeReturnUrl($payIn->ExecutionDetails->SecureModeReturnURL);
         $cardDirectPayIn->setSecureModeRedirectUrl($payIn->ExecutionDetails->SecureModeRedirectURL);
         $cardDirectPayIn->setSecureModeNeeded($payIn->ExecutionDetails->SecureModeNeeded);
         $cardDirectPayIn->setTag($payIn->Tag);

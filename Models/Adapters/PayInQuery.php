@@ -14,6 +14,7 @@ namespace PartFire\MangoPayBundle\Models\Adapters;
 
 use MangoPay\PayIn;
 use MangoPay\PayInStatus;
+use PartFire\MangoPayBundle\MangoPayConstants;
 use PartFire\MangoPayBundle\Models\DTOs\BankwireDirectPayIn;
 use PartFire\MangoPayBundle\Models\DTOs\CardDirectPayIn;
 use PartFire\MangoPayBundle\Models\DTOs\Translators\PayInTranslator;
@@ -92,12 +93,22 @@ class PayInQuery extends AbstractQuery implements PayInQueryInterface
         }
     }
 
-    public function get($id) : BankwireDirectPayIn
+    /*
+    * TODO: Sort the return type for this
+     *
+     */
+
+    public function get($id)
     {
         try {
             $payIn = $this->mangoPayApi->PayIns->Get($id);
             if ($payIn instanceof PayIn) {
-                return $this->payInTranslator->translateMangoPayBankwireDirectPayInToDto($payIn);
+                if ($payIn->PaymentType == MangoPayConstants::PAY_IN_TYPE_BANK_WIRE) {
+                    return $this->payInTranslator->translateMangoPayBankwireDirectPayInToDto($payIn);
+                }
+                if ($payIn->PaymentType == MangoPayConstants::PAY_IN_TYPE_CARD) {
+                    return $this->payInTranslator->translateMangoPayDirectPayInToDto($payIn);
+                }
             }
             $this->logger->addCritical("Failed to get PayIn");
             throw new PartFireException("Failed to get PayIn");
