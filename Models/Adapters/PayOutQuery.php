@@ -55,10 +55,10 @@ class PayOutQuery extends AbstractQuery implements PayOutQueryInterface
                     return $this->payOutTranslator->translateMangoToPayOutDto($createdPayout);
                 }
                 $this->logger->addCritical(
-                    "Pay-Out has been created with status: ".$createdPayout->Status . ' (result code: ' . $createdPayout->ResultCode . ')'
+                    "Pay-Out has been created with status: ".$createdPayout->Status . ' (result code: ' . $createdPayout->ResultCode . ' '. $createdPayout->ResultMessage.')'
                 );
                 throw new PartFireException(
-                    "Pay-Out has been created with status: ".$createdPayout->Status . ' (result code: ' . $createdPayout->ResultCode . ')'
+                    "Pay-Out has been created with status: ".$createdPayout->Status . ' (result code: ' . $createdPayout->ResultCode . ' '. $createdPayout->ResultMessage.')'
                 );
             }
             $this->logger->addCritical("Failed to create PayOut");

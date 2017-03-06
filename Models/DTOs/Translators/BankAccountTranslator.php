@@ -55,7 +55,7 @@ class BankAccountTranslator
         $ibanBankAccount->setOwnerName($bankAccount->OwnerName);
         $ibanBankAccount->setType($bankAccount->Type);
         $ibanBankAccount->setIban($bankAccount->Details->IBAN);
-        $ibanBankAccount->setBic($bankAccount->Details->Bic);
+        $ibanBankAccount->setBic($bankAccount->Details->BIC);
         $ibanBankAccount->setCreationDate($bankAccount->CreationDate);
 
         $address = new AddressDto();
