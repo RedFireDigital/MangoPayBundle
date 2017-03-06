@@ -32,4 +32,9 @@ class Wallet
     {
         return $this->walletQuery->create($walletDto);
     }
+
+    public function get($walletId)
+    {
+        return $this->walletQuery->get($walletId);
+    }
 }

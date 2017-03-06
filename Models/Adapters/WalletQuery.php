@@ -66,7 +66,16 @@ class WalletQuery extends AbstractQuery implements WalletQueryInterface
 
     public function get($walletId)
     {
-        // TODO: Implement get() method.
+        try {
+            $mangoWallet = $this->mangoPayApi->Wallets->Get($walletId);
+        } catch(ResponseException $e) {
+            $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
+            throw new PartFireException($e->getMessage(), $e->getCode());
+        } catch(Exception $e) {
+            $this->logger->addError($e->getMessage());
+            throw new PartFireException($e->getMessage(), $e->getCode());
+        }
+        return $this->walletTranslator->convertMangoPayWalletToDTO($mangoWallet);
     }
 
     public function getAll()

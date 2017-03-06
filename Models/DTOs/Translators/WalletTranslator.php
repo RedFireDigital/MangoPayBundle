@@ -37,6 +37,7 @@ class WalletTranslator
         $walletDto->setDescription($mangoWallet->Description);
         $walletDto->setCurrency($mangoWallet->Currency);
         $walletDto->setId($mangoWallet->Id);
+        $walletDto->setBalance($mangoWallet->Balance->Amount);
         return $walletDto;
     }
 }

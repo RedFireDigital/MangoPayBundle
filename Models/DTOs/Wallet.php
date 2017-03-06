@@ -24,6 +24,8 @@ class Wallet
 
     protected $tag;
 
+    protected $balance;
+
     /**
      * @return mixed
      */
@@ -110,5 +112,21 @@ class Wallet
     public function setTag($tag)
     {
         $this->tag = $tag;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBalance()
+    {
+        return $this->balance;
+    }
+
+    /**
+     * @param mixed $balance
+     */
+    public function setBalance($balance)
+    {
+        $this->balance = $balance;
     }
 }
