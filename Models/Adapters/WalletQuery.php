@@ -56,10 +56,10 @@ class WalletQuery extends AbstractQuery implements WalletQueryInterface
             $mangoWallet = $this->mangoPayApi->Wallets->Create($mangoWallet);
         } catch(ResponseException $e) {
             $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
-            throw new PartFireException($e->getMessage(), $e->getCode());
+            throw new PartFireException($e->getMessage(), $e->getCode(), $e);
         } catch(Exception $e) {
             $this->logger->addError($e->getMessage());
-            throw new PartFireException($e->getMessage(), $e->getCode());
+            throw new PartFireException($e->getMessage(), $e->getCode(), $e);
         }
         return $this->walletTranslator->convertMangoPayWalletToDTO($mangoWallet);
     }
@@ -70,10 +70,10 @@ class WalletQuery extends AbstractQuery implements WalletQueryInterface
             $mangoWallet = $this->mangoPayApi->Wallets->Get($walletId);
         } catch(ResponseException $e) {
             $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
-            throw new PartFireException($e->getMessage(), $e->getCode());
+            throw new PartFireException($e->getMessage(), $e->getCode(), $e);
         } catch(Exception $e) {
             $this->logger->addError($e->getMessage());
-            throw new PartFireException($e->getMessage(), $e->getCode());
+            throw new PartFireException($e->getMessage(), $e->getCode(), $e);
         }
         return $this->walletTranslator->convertMangoPayWalletToDTO($mangoWallet);
     }

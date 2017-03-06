@@ -58,12 +58,13 @@ class TransferQuery extends AbstractQuery implements TransferQueryInterface
         $mangoTransfer = $this->transferTranslator->convertDTOToMangoPayTransfer($transferDto);
         try {
             $mangoTransfer = $this->mangoPayApi->Transfers->Create($mangoTransfer);
+
         } catch (ResponseException $e) {
             $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
-            return new PartFireException($e->getMessage(), $e->getCode());
+            throw new PartFireException($e->getMessage(), $e->getCode(), $e);
         } catch (Exception $e) {
             $this->logger->addError($e->getMessage());
-            return new PartFireException($e->getMessage(), $e->getCode());
+            throw new PartFireException($e->getMessage(), $e->getCode(), $e);
         }
         return $this->transferTranslator->convertMangoPayTransferToDTO($mangoTransfer);
     }
@@ -74,10 +75,10 @@ class TransferQuery extends AbstractQuery implements TransferQueryInterface
             $mangoTransfer = $this->mangoPayApi->Transfers->Get($transferId);
         } catch (ResponseException $e) {
             $this->logger->addCritical($e->getMessage(), ['code' => $e->getCode(), 'details' => $e->GetErrorDetails()]);
-            return new PartFireException($e->getMessage(), $e->getCode());
+            throw new PartFireException($e->getMessage(), $e->getCode(), $e);
         } catch (Exception $e) {
             $this->logger->addError($e->getMessage());
-            return new PartFireException($e->getMessage(), $e->getCode());
+            throw new PartFireException($e->getMessage(), $e->getCode(), $e);
         }
         return $this->transferTranslator->convertMangoPayKycDocumentToDTO($mangoTransfer);
     }

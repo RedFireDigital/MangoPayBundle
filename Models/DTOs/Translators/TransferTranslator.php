@@ -30,11 +30,11 @@ class TransferTranslator
             $Transfer->DebitedFunds->Amount = $transferDto->getDebitedAmount();
         }
 
-        if ($transferDto->getFeeAmount() && $transferDto->getFeeCurrency()) {
-            $Transfer->Fees = new \MangoPay\Money();
-            $Transfer->Fees->Currency = $transferDto->getFeeCurrency();
-            $Transfer->Fees->Amount = $transferDto->getFeeAmount();
-        }
+
+        $Transfer->Fees = new \MangoPay\Money();
+        $Transfer->Fees->Currency = $transferDto->getFeeCurrency();
+        $Transfer->Fees->Amount = $transferDto->getFeeAmount();
+
 
         $Transfer->DebitedWalletId = $transferDto->getDebitedWalledId();
         $Transfer->CreditedWalletId = $transferDto->getCreditedWalledId();
