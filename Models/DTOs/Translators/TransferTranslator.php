@@ -52,6 +52,7 @@ class TransferTranslator
         $transfer->setStatus($mangoPayTransfer->Status);
         $transfer->setResultCode($mangoPayTransfer->ResultCode);
         $transfer->setResultMessage($mangoPayTransfer->ResultMessage);
+        $transfer->setResourceId($mangoPayTransfer->Id);
 
         if (isset($mangoPayTransfer->Fees->Currency))
             $transfer->setFeeCurrency($mangoPayTransfer->Fees->Currency);
