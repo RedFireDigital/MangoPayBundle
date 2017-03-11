@@ -41,7 +41,7 @@ class TransferTranslator
         return $Transfer;
     }
 
-    public function convertMangoPayTransferToDTO(\MangoPay\Transfer $mangoPayTransfer)
+    public function convertMangoPayTransferToDTO(\MangoPay\Transfer $mangoPayTransfer) : Transfer
     {
         $transfer = new Transfer();
         $transfer->setAuthorId($mangoPayTransfer->AuthorId);
@@ -52,18 +52,31 @@ class TransferTranslator
         $transfer->setStatus($mangoPayTransfer->Status);
         $transfer->setResultCode($mangoPayTransfer->ResultCode);
         $transfer->setResultMessage($mangoPayTransfer->ResultMessage);
+        $transfer->setResourceId($mangoPayTransfer->Id);
 
-        if (isset($mangoPayTransfer->Fees->Currency))
+        if (isset($mangoPayTransfer->Fees->Currency)) {
             $transfer->setFeeCurrency($mangoPayTransfer->Fees->Currency);
+        }
 
-        if (isset($mangoPayTransfer->Fees->Amount))
+        if (isset($mangoPayTransfer->Fees->Amount)) {
             $transfer->setFeeAmount($mangoPayTransfer->Fees->Amount);
+        }
 
-        if (isset($mangoPayTransfer->DebitedFunds->Currency))
+        if (isset($mangoPayTransfer->DebitedFunds->Currency)) {
             $transfer->setDebitedCurrency($mangoPayTransfer->DebitedFunds->Currency);
+        }
 
-        if (isset($mangoPayTransfer->DebitedFunds->Amount))
+        if (isset($mangoPayTransfer->DebitedFunds->Amount)) {
             $transfer->setDebitedAmount($mangoPayTransfer->DebitedFunds->Amount);
+        }
+
+        if (isset($mangoPayTransfer->CreditedFunds->Currency)) {
+            $transfer->setCreditedCurrency($mangoPayTransfer->CreditedFunds->Currency);
+        }
+
+        if (isset($mangoPayTransfer->CreditedFunds->Amount)) {
+            $transfer->setCreditedAmount($mangoPayTransfer->CreditedFunds->Amount);
+        }
 
         return $transfer;
     }
