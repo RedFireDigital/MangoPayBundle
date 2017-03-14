@@ -63,7 +63,7 @@ class MangoPayConstants
 
     const       CREATED                             = 'CREATED';
     const       VALIDATION_ASKED                    = 'VALIDATION_ASKED';
-    const       VALIDATED                           = 'VALIDATED';
+    const       VALIDATED                           = 'SUCCEEDED';
     const       REFUSED                             = 'REFUSED';
 
     // Hook Status
