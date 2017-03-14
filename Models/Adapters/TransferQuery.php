@@ -83,6 +83,6 @@ class TransferQuery extends AbstractQuery implements TransferQueryInterface
             $this->logger->addError($e->getMessage());
             throw new PartFireException($e->getMessage(), $e->getCode(), $e);
         }
-        return $this->transferTranslator->convertMangoPayKycDocumentToDTO($mangoTransfer);
+        return $this->transferTranslator->convertMangoPayTransferToDTO($mangoTransfer);
     }
 }

@@ -29,7 +29,7 @@ class Transfer
         return $this->transferQuery->create($transfer);
     }
 
-    public function get(string $transferId) : Transfer
+    public function get(string $transferId) : TransferDto
     {
         return $this->transferQuery->get($transferId);
     }

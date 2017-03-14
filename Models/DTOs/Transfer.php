@@ -24,7 +24,11 @@ class Transfer
 
     protected $debitedCurrency;
 
+    protected $creditedCurrency;
+
     protected $debitedAmount;
+
+    protected $creditedAmount;
 
     protected $feeCurrency;
 
@@ -247,4 +251,37 @@ class Transfer
     {
         $this->resourceId = $resourceId;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCreditedAmount()
+    {
+        return $this->creditedAmount;
+    }
+
+    /**
+     * @param mixed $creditedAmount
+     */
+    public function setCreditedAmount($creditedAmount)
+    {
+        $this->creditedAmount = $creditedAmount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreditedCurrency()
+    {
+        return $this->creditedCurrency;
+    }
+
+    /**
+     * @param mixed $creditedCurrency
+     */
+    public function setCreditedCurrency($creditedCurrency)
+    {
+        $this->creditedCurrency = $creditedCurrency;
+    }
+
 }
