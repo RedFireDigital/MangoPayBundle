@@ -67,7 +67,7 @@ class HookHandleService
     {
         $formattedJson = json_encode($getArray);
         $this->sendMessage(
-            "New Webhook received from MangoPay \n ```" . $formattedJson . "```",
+            "New Webhook received from MangoPay at " . date('l jS \of F Y h:i:s A') . "\n ```" . $formattedJson . "```",
             ':leftwards_arrow_with_hook:'
         );
 
