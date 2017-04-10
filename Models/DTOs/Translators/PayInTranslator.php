@@ -51,7 +51,7 @@ class PayInTranslator
         $cardDirectPayIn = new CardDirectPayIn();
         $cardDirectPayIn->setStatus($payIn->Status);
         $cardDirectPayIn->setCurrency($payIn->DebitedFunds->Currency);
-        $cardDirectPayIn->setAmount($payIn->DebitedFunds->Amount);
+        $cardDirectPayIn->setAmount($payIn->CreditedFunds);
         $cardDirectPayIn->setAuthorId($payIn->AuthorId);
         $cardDirectPayIn->setFees($payIn->Fees->Amount);
         $cardDirectPayIn->setFeesCurrency($payIn->Fees->Currency);
