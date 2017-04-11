@@ -96,7 +96,7 @@ class PayInTranslator
         $cardDirectPayIn->setAuthorId($payIn->AuthorId);
         $cardDirectPayIn->setCreditedWalletId($payIn->CreditedWalletId);
         $cardDirectPayIn->setCreditedUserId($payIn->CreditedUserId);
-        $cardDirectPayIn->setDeclaredDebitedFundsAmount($payIn->PaymentDetails->DeclaredDebitedFunds->Amount);
+        $cardDirectPayIn->setDeclaredDebitedFundsAmount($payIn->CreditedFunds);
         $cardDirectPayIn->setDeclaredDebitedFundsCurrency($payIn->PaymentDetails->DeclaredDebitedFunds->Currency);
         $cardDirectPayIn->setDeclaredFeesAmount($payIn->PaymentDetails->DeclaredFees->Amount);
         $cardDirectPayIn->setDeclaredFeesCurrency($payIn->PaymentDetails->DeclaredFees->Currency);
