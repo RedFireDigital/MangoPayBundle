@@ -51,7 +51,13 @@ class PayInTranslator
         $cardDirectPayIn = new CardDirectPayIn();
         $cardDirectPayIn->setStatus($payIn->Status);
         $cardDirectPayIn->setCurrency($payIn->DebitedFunds->Currency);
-        $cardDirectPayIn->setAmount($payIn->CreditedFunds);
+
+        if (isset($payIn->CreditedFunds->Amount)) {
+            $cardDirectPayIn->setAmount($payIn->CreditedFunds->Amount);
+        } else {
+            $cardDirectPayIn->setAmount($payIn->DebitedFunds->Amount);
+        }
+
         $cardDirectPayIn->setAuthorId($payIn->AuthorId);
         $cardDirectPayIn->setFees($payIn->Fees->Amount);
         $cardDirectPayIn->setFeesCurrency($payIn->Fees->Currency);
@@ -96,7 +102,11 @@ class PayInTranslator
         $cardDirectPayIn->setAuthorId($payIn->AuthorId);
         $cardDirectPayIn->setCreditedWalletId($payIn->CreditedWalletId);
         $cardDirectPayIn->setCreditedUserId($payIn->CreditedUserId);
-        $cardDirectPayIn->setDeclaredDebitedFundsAmount($payIn->CreditedFunds);
+        if (isset($payIn->CreditedFunds->Amount)) {
+            $cardDirectPayIn->setDeclaredDebitedFundsAmount($payIn->CreditedFunds->Amount);
+        } else {
+            $cardDirectPayIn->setDeclaredDebitedFundsAmount($payIn->DebitedFunds->Amount);
+        }
         $cardDirectPayIn->setDeclaredDebitedFundsCurrency($payIn->PaymentDetails->DeclaredDebitedFunds->Currency);
         $cardDirectPayIn->setDeclaredFeesAmount($payIn->PaymentDetails->DeclaredFees->Amount);
         $cardDirectPayIn->setDeclaredFeesCurrency($payIn->PaymentDetails->DeclaredFees->Currency);
