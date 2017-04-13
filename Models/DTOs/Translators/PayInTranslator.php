@@ -19,6 +19,7 @@ use MangoPay\PayInPaymentDetailsBankWire;
 use MangoPay\PayInPaymentDetailsCard;
 use PartFire\MangoPayBundle\Models\DTOs\BankwireDirectPayIn;
 use PartFire\MangoPayBundle\Models\DTOs\CardDirectPayIn;
+use PartFire\MangoPayBundle\MangoPayConstants;
 
 class PayInTranslator
 {
@@ -102,10 +103,10 @@ class PayInTranslator
         $cardDirectPayIn->setAuthorId($payIn->AuthorId);
         $cardDirectPayIn->setCreditedWalletId($payIn->CreditedWalletId);
         $cardDirectPayIn->setCreditedUserId($payIn->CreditedUserId);
-        if (isset($payIn->CreditedFunds->Amount)) {
-            $cardDirectPayIn->setDeclaredDebitedFundsAmount($payIn->CreditedFunds->Amount);
+        if (MangoPayConstants::CREATED == $payIn->Status) {
+            $cardDirectPayIn->setDeclaredDebitedFundsAmount($payIn->PaymentDetails->DeclaredDebitedFunds->Amount);
         } else {
-            $cardDirectPayIn->setDeclaredDebitedFundsAmount($payIn->DebitedFunds->Amount);
+            $cardDirectPayIn->setDeclaredDebitedFundsAmount($payIn->CreditedFunds->Amount);
         }
         $cardDirectPayIn->setDeclaredDebitedFundsCurrency($payIn->PaymentDetails->DeclaredDebitedFunds->Currency);
         $cardDirectPayIn->setDeclaredFeesAmount($payIn->PaymentDetails->DeclaredFees->Amount);
